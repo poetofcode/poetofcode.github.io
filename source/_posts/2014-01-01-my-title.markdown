@@ -1,0 +1,7 @@
+---
+layout: post
+title: "my title"
+date: 2014-01-01 19:47:58 +0400
+comments: true
+categories: 
+---
