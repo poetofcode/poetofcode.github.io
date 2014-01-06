@@ -1,5 +1,21 @@
+#encoding: utf-8
+
 module Octopress
   module Date
+
+    # Русская локализация:
+    MONTHNAMES_RU = [nil,
+      "Января", "Февраля", "Марта", "Апреля", "Мая", "Июня",
+      "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря" ]
+    ABBR_MONTHNAMES_RU = [nil,
+      "Янв", "Фев", "Мар", "Апр", "Май", "Июн",
+      "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ]
+    DAYNAMES_RU = [
+      "Воскресенье", "Понедельник", "Вторник", "Среда",
+      "Четверг", "Пятница", "Суббота" ]
+    ABBR_DAYNAMES_RU = [
+      "Вс", "Пн", "Вт", "Ср",
+      "Чт", "Пт", "Сб" ]
 
     # Returns a datetime if the input is a string
     def datetime(date)
@@ -9,10 +25,10 @@ module Octopress
       date
     end
 
-    # Returns an ordidinal date eg July 22 2007 -> July 22nd 2007
+    # В _config.yml должно быть задано: date_format: ordinal 
     def ordinalize(date)
-      date = datetime(date)
-      "#{date.strftime('%b')} #{ordinal(date.strftime('%e').to_i)}, #{date.strftime('%Y')}"
+      # Задаем наш формат выдачи даты    
+      format_date(date, "%A, %e %B %Y") # ПЯТНИЦА, 13 ИЮЛЯ 2012
     end
 
     # Returns an ordinal number. 13 -> 13th, 21 -> 21st etc.
@@ -36,12 +52,17 @@ module Octopress
       if format.nil? || format.empty? || format == "ordinal"
         date_formatted = ordinalize(date)
       else
+        format.gsub!(/%a/, ABBR_DAYNAMES_RU[date.wday])
+        format.gsub!(/%A/, DAYNAMES_RU[date.wday])
+        format.gsub!(/%b/, ABBR_MONTHNAMES_RU[date.mon])
+        format.gsub!(/%B/, MONTHNAMES_RU[date.mon])
         date_formatted = date.strftime(format)
-        date_formatted.gsub!(/%o/, ordinal(date.strftime('%e').to_i))
+        # date_formatted = date.strftime(format)
+        # date_formatted.gsub!(/%o/, ordinal(date.strftime('%e').to_i))
       end
       date_formatted
     end
-    
+
     # Returns the date-specific liquid attributes
     def liquid_date_attributes
       date_format = self.site.config['date_format']
@@ -78,4 +99,12 @@ module Jekyll
       super_to_liquid.deep_merge(liquid_date_attributes)
     end
   end
+
+  module Filters
+    include Octopress::Date
+    def date_ru(date, format)
+      format_date(date, format)
+    end
+  end
+
 end
