@@ -1,0 +1,98 @@
+---
+layout: post
+title: "Установка и настройка Kohana на Ubuntu"
+date: 2013-01-05 21:28:10 +0400
+comments: true
+categories: [kohana, apache, ubuntu, framework]
+---
+
+Исходные данные
+---------------
+
+<ul>
+	<li>
+		ОС Ubuntu</li>
+	<li>
+		Установленный LAMP-сервер (<a href="http://help.ubuntu.ru/wiki/lamp">http://help.ubuntu.ru/wiki/lamp</a>)</li>
+</ul>
+
+<!-- more -->
+
+<h2>
+	Установка Kohana</h2>
+<p>
+	Переходим на сайт фрэймворка и скачиваем последнюю версию:&nbsp;<a href="http://kohanaframework.org/">http://kohanaframework.org/</a></p>
+<p>
+	Распаковываем содержимое скачанного архива <em>kohana-3.3.0.zip</em> (ваша версия может отличаться) в директорию <strong>/var/www/</strong>. Так как в архиве обычно присутствует одна папка "kohana", то в результате путь до исходников должен получиться таким: <strong>/var/www/kohana/</strong></p>
+<h2>
+	Создание виртуального хоста для проекта</h2>
+<p>
+	Виртуальные хосты позволяют размещать несколько сайтов на одном 
+веб-сервере. Наша задача - настроить виртуальный хост для сервера 
+Apache2. Для этого создадим и отредактируем файлик виртуального хоста 
+для нашего проекта:<br>
+	<br>
+	<code class="functions" style="line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="color: rgb(0, 0, 0); font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13.600000381469727px; line-height: 14.519999504089355px;">&nbsp;gedit</span><code class="plain" style="line-height: 14.519999504089355px; font-size: 13.600000381469727px; color: rgb(0, 0, 0); margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important;">&nbsp;/etc/apache2/sites-available/kohana</code><br>
+	<br>
+	Вставьте следующее содержимое:<br>
+	&nbsp;</p>
+<pre>NameVirtualHost *:80
+
+&lt;VirtualHost *:80&gt;
+     ServerAdmin    webmaster@ubuntu
+     ServerName     khn.localhost
+ 
+     DocumentRoot /var/www/kohana
+ 
+     &lt;Directory "/var/www/kohana"&gt;
+          AllowOverride All
+          Order Allow,Deny
+          Allow From All
+     &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+</pre>
+<p>
+	Теперь необходимо активировать нашу конфигурацию командой:<br>
+	<br>
+	<code class="bash functions" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="color: rgb(68, 68, 68); font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13px; line-height: 14.300000190734863px; white-space: pre;"> </span><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">a2ensite kohana</code><br>
+	<br>
+	(для отключения используется команда:<code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">&nbsp;</code><code class="bash functions" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="color: rgb(68, 68, 68); font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13px; line-height: 14.300000190734863px; white-space: pre;"> </span><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">a2dissite kohana</code>)</p>
+<p>
+	Далее добавляем в файл hosts алиас на наш новый проект следующей командой:<br>
+	<br>
+	<font color="#000000" face="Consolas, Bitstream Vera Sans Mono, Courier New, Courier, monospace" size="2"><span style="line-height: 14.300000190734863px; white-space: pre;">sudo gedit /etc/hosts</span></font><br>
+	<br>
+	добавьте в конец строчку:</p>
+<p>
+	<span style="font-size: 13.600000381469727px; line-height: 14.399999618530273px;">127.0.0.1 khn.localhost</span></p>
+<p>
+	Рестартуем сервер:<br>
+	<br>
+	<code class="bash functions" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="color: rgb(68, 68, 68); font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13px; line-height: 14.300000190734863px; white-space: pre;"> </span><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">/etc/init</code><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">.d</code><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">/apache2</code><span style="color: rgb(68, 68, 68); font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13px; line-height: 14.300000190734863px; white-space: pre;"> </span><code class="bash plain" style="line-height: 14.300000190734863px; font-size: 13px; white-space: pre; border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important; background-image: none !important; border: 0px !important; bottom: auto !important; float: none !important; height: auto !important; left: auto !important; margin: 0px !important; outline: 0px !important; overflow: visible !important; padding: 0px !important; position: static !important; right: auto !important; top: auto !important; vertical-align: baseline !important; width: auto !important; box-sizing: content-box !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: black !important;">restart</code></p>
+<p>
+	Теперь можно оценить результат. Откройте в своем браузере адрес нашего проекта: http://khn.localhost/</p>
+<p>
+	Здесь вы должны увидеть страницу тестов окружения Kohana такого плана:<br>
+	<br>
+	<img alt="" src="/images/kohana-fail.png" style="width: 421px; height: 416px;"></p>
+<p>
+	Тесты рапортуют о некорректной настройке из-за отсутствия прав на 
+запись у директорий для файлов &nbsp;кэша и логов. Установим нужные 
+права:<br>
+	&nbsp;</p>
+<div class="line alt1" style="line-height: 14.519999504089355px; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; min-height: auto !important;">
+	<code class="functions" style="line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="color: rgb(0, 0, 0); font-size: 13.600000381469727px; line-height: 14.519999504089355px;">&nbsp;</span><code class="functions" style="line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">chmod</code><span style="color: rgb(0, 0, 0); font-size: 13.600000381469727px; line-height: 14.519999504089355px;">&nbsp;</span><code class="plain" style="line-height: 14.519999504089355px; font-size: 13.600000381469727px; color: rgb(0, 0, 0); margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important;">a+w /var/www/kohana/application/logs/<br>
+	<code class="functions" style="background-color: rgb(248, 248, 248); line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">sudo</code><span style="font-size: 13.600000381469727px; line-height: 14.519999504089355px; background-color: rgb(248, 248, 248);">&nbsp;</span><code class="functions" style="background-color: rgb(248, 248, 248); line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important; color: rgb(255, 20, 147) !important;">chmod</code><span style="font-size: 13.600000381469727px; line-height: 14.519999504089355px; background-color: rgb(248, 248, 248);">&nbsp;</span><code class="plain" style="background-color: rgb(248, 248, 248); line-height: 14.519999504089355px; font-size: 13.600000381469727px; margin: 0px !important; padding: 0px !important; border: 0px !important; outline: 0px !important; background-image: none !important; float: none !important; vertical-align: baseline !important; position: static !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; height: auto !important; width: auto !important; font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important; min-height: auto !important;">a+w /var/www/kohana/application/cache/</code></code></div>
+<p>
+	&nbsp;</p>
+<p>
+	Перезагрузим страничку&nbsp;http://khn.localhost/. Теперь всё должно быть нормально:<br>
+	<br>
+	<img alt="" src="/images/kohana-success.png" style="width: 598px; height: 96px;"></p>
+<p>
+	Кстати, эта же страничка подсказывает нам, что следующим действием мы должны удалить (или переименовать) файлик install.php</p>
+<p>
+	В результате этого, перезагрузив страничку нашего сайта мы должны увидеть стандартную надпись:<br>
+	<br>
+	<span style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium;">hello, world!</span></p>

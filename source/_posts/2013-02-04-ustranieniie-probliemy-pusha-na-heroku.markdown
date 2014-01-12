@@ -6,7 +6,7 @@ comments: true
 categories: [bug, heroku, ssh, ubuntu, stackoverflow]
 ---
 
-Недавно столкнулся со странной проблемой при попытке сделать <em>push</em> на облачный сервис [Heroku](https://www.heroku.com).
+Недавно столкнулся со странной проблемой при попытке сделать <em>push</em> на облачный сервис [Heroku](https://www.heroku.com):
 
 <pre>
 $ git push heroku master
@@ -14,6 +14,8 @@ Agent admitted failure to sign using the key.
 Permission denied (publickey).
 fatal: The remote end hung up unexpectedly
 </pre>
+
+<!-- more -->
 
 <p>
 	При этом все ключи были, как и положено, сгенерированы и добавлены в heroku, соответственно, командами:</p>
