@@ -1,17 +1,82 @@
 ---
 layout: page
-title: "index"
+title: "Памятка Octopress"
 date: 2014-05-22 13:03
 comments: true
 sharing: true
 footer: true
 ---
-*Постоянно забываю как настраивать и как пользоваться этим блогом, поэтому решил оставить тут памятку для самого себя*
+<em>Постоянно забываю как настраивать и как пользоваться этим блогом, поэтому решил оставить тут памятку для самого себя</em>
 
-# Установка окружения
+<h2>Установка окружения</h2>
 
-# Настройка деплоймента
+<ul>
+	<li>Ставим RVM: <p>curl -L https://get.rvm.io | bash -s stable --ruby</p></li>
+	<li>Ставим руби: 
+		<p>rvm install 1.9.3</p>
+		<p>rvm use 1.9.3</p>
+		<p>rvm rubygems latest</p>
+	</li>
+</ul>
 
-# Команды rake
+<h2>Настройка деплоймента</h2>
 
-# Синтаксис Markdown
+<ul>
+	<li>git clone https://github.com/poetofcode/poetofcode.github.io.git</li>
+	<li>cd poetofcode.github.io.git</li>
+	<li>rake setup_github_pages</li>
+</ul>
+
+<h2>Команды rake</h2>
+
+<ul>
+	<li>Новый пост: rake new_post["имя-поста"]</li>
+	<li>Сгенерировать блог: rake generate</li>
+	<li>Деплой: rake deploy</li>
+	<li>И то и другое: rake gen_deploy</li>
+</ul>
+
+<h2>Синтаксис Markdown</h2>
+
+<strong>Заголовки:</strong>
+<br>
+# Заголовок 1
+<br>
+## Заголовок 2
+<br>
+### Заголовок 3
+<br><br>
+
+<strong>Цитата:</strong>
+<br>
+> Текст цитаты
+<br><br>
+
+<strong>Блок кода</strong>
+<br>
+Просто блок: ставим таб или 4 пробела перед тектом
+<br>
+С подсветкой синтаксиса для кода (в примере апострофы разделены пробелом, но пробелов быть не должно)
+<br>
+` ` ` html
+<br>
+<em>Ваш код</em>
+<br>
+` ` `
+<br><br>
+
+<strong>Выделение текста:</strong>
+<br>
+** жирный **
+<br>
+* курсив *
+<br><br>
+
+<strong>Ссылки:</strong>
+<br>
+Обычная сслыка: [This link](http://example.net/)
+<br>
+На изображение: ![Alt text](/path/to/img.jpg)
+<br><br>
+
+Подробнее тут: <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
