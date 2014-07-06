@@ -98,3 +98,8 @@ google_analytics_tracking_id: UA-41058583-1
 
 # Facebook Like
 facebook_like: true
+
+# Flickr settings
+flickr:
+  api_key: ddf5a200fd7b5a82f167ce8286477fae
+  shared_secret: ceb274aa10089bb4

@@ -82,3 +82,31 @@ footer: true
 <br><br>
 
 Подробнее тут: <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
+
+<h2>Flickr</h2>
+
+<div>
+ 	{ % flickr_image id [preview-size [alignment [caption]] % }<br>
+
+ 	{ % flickr_set id [preview-size [desc|nodesc]] % }<br><br>
+
+ 	<strong>Примечание:</strong> без пробелов между { и %
+</div>
+
+<div>
+	<strong>preview-size</strong><br>
+		o : "Original", no maximum dimension<br>
+		b : "Large", 1024px<br>
+		z : "Medium 640", 640px<br>
+		n : "Small 320", 320px<br>
+		m : "Small", 240px,<br>
+		t : "Thumbnail", 100px<br>
+		q : "Large Square", 150px<br>
+		s : "Square", 75px<br>
+</div>
+
+<div>
+	<strong>alignment</strong><br>
+	The alignment is specified as left, right, or center, like the rest of Octopress.<br><br>
+
+Подробнее: <a href="https://github.com/neilk/octopress-flickr#how-to-use-the-tags">https://github.com/neilk/octopress-flickr#how-to-use-the-tags</a>
