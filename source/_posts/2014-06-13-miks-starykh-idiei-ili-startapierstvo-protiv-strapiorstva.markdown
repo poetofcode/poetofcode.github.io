@@ -18,4 +18,4 @@ categories:
 Поэтому сейчас я стал уже не так категоричен к работам, я понимаю, что в какой-то степени это даже может быть полезным для моих начинаний.
 
 *Оффтоп: песенка, под которую писался этот пост:*
-<object width="550" height="110"><param name="movie" value="http://embed.pleer.com/track?id=B3r4rB4h6ttmBnj2"></param><embed src="http://embed.pleer.com/track?id=B3r4rB4h6ttmBnj2" type="application/x-shockwave-flash" width="550" height="110"></embed></object> <br> <small>Прослушать или <a href="http://pleer.com/tracks/175131kIWQ" target="_blank">скачать Creed Overcome бесплатно</a> на <a href="http://pleer.com/" target="_blank">Простоплеер</a></small>
+<object width="550" height="42"><param name="movie" value="http://embed.pleer.com/track?id=B3r4rB4h6ttmBnj2"></param><embed src="http://embed.pleer.com/track?id=B3r4rB4h6ttmBnj2" type="application/x-shockwave-flash" width="550" height="42"></embed></object> <br> <small>Прослушать или <a href="http://pleer.com/tracks/175131kIWQ" target="_blank">скачать Creed Overcome бесплатно</a> на <a href="http://pleer.com/" target="_blank">Простоплеер</a></small>
