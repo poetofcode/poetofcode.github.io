@@ -2,7 +2,7 @@
 layout: post
 title: "Четырнадцатый многому научил"
 date: 2014-12-27 14:30:00 +0400
-comments: true
+comments: false
 categories: [итоги, новый_год, размышления, рефлексия]
 ---
 
