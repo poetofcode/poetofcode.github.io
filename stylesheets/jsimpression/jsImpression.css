@@ -1,0 +1,19 @@
+.jsimpression-container {
+    position:relative;
+    height: 100%;
+}
+
+.jsimpression-container img {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:8;
+}
+
+.jsimpression-container img.active {
+    z-index:10;
+}
+
+.jsimpression-container img.last-active {
+    z-index:9;
+}

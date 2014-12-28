@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Устранение проблемы Push'а на Heroku - PoetOfCode' Blog</title>
+  <meta name="author" content="PoetOfCode">
+
+  
+  <meta name="description" content="Недавно столкнулся со странной проблемой при попытке сделать push на облачный сервис Heroku: $ git push heroku master
+Agent admitted failure to sign &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://poetofcode.ru/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PoetOfCode' Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+ 
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41058583-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+<!--   <header role="banner"><hgroup>
+  <h1><a href="/">PoetOfCode' Blog</a></h1>
+  
+    <h2>Невымышленные истории о программировании.</h2>
+  
+</hgroup>
+
+</header>
+ -->  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:poetofcode.ru" />
+    <input class="search" type="text" name="q" results="0" placeholder="Поиск"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Блог</a></li>
+  <li><a href="/blog/archives">Архивы</a></li>
+  <li><a href="/fotki/">Фотки</a></li>
+  <li><a href="/instruktsiia-octopress/">Памятка octopress</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Устранение проблемы Push'а на Heroku</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-04T21:44:19+04:00" pubdate data-updated="true">Понедельник,  4 Февраля 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://poetofcode.ru">Комментарии</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Недавно столкнулся со странной проблемой при попытке сделать <em>push</em> на облачный сервис <a href="https://www.heroku.com">Heroku</a>:</p>
+
+<pre>
+$ git push heroku master
+Agent admitted failure to sign using the key.
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+</pre>
+
+
+
+
+<!-- more -->
+
+
+
+
+<p>
+    При этом все ключи были, как и положено, сгенерированы и добавлены в heroku, соответственно, командами:</p>
+
+
+
+
+<pre>
+$ ssh-keygen -t rsa -C "poetinthecode@gmail.com"
+$ heroku keys:add
+</pre>
+
+
+
+
+<p>
+    В итоге решение было найдено после часового гугления и заключается оно в правильной настройке переменной окружения <em>SSH_AUTH_SOCK</em>:</p>
+
+
+
+
+<pre>
+$ SSH_AUTH_SOCK=0
+</pre>
+
+
+<p>
+    Вот после этой странной команды, наконец-то можно сделать Push:</p>
+
+
+<pre>
+$ git push heroku master
+</pre>
+
+
+<p>
+    Спасибо <a href="http://stackoverflow.com/a/6075594/1655801">StackOverflow</a>, как всегда выручил!</p>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Опубликовал <span class="fn">PoetOfCode</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-04T21:44:19+04:00" pubdate data-updated="true">Понедельник,  4 Февраля 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bug/'>bug</a>, <a class='category' href='/blog/categories/heroku/'>heroku</a>, <a class='category' href='/blog/categories/ssh/'>ssh</a>, <a class='category' href='/blog/categories/stackoverflow/'>stackoverflow</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://poetofcode.ru/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku/" data-via="poetinthecode" data-counturl="http://poetofcode.ru/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/10/obzor-biudzhietnogho-smartfona-highscreen-spark/" title="Previous Post: Обзор бюджетного смартфона Highscreen Spark">&laquo; Обзор бюджетного смартфона Highscreen Spark</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/02/05/v-posliednii-raz-pro-gitignore/" title="Next Post: В последний раз про .gitignore">В последний раз про .gitignore &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Комментарии</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Об авторе</h1>
+  <img src="/images/ava.jpg" style="float: right; margin-left: 10px;">
+  <p style="text-align: justify;">Занимаюсь веб-разработкой, а также программированием для мобильных устройств. Наиболее интересные темы из моей работы и жизни стараюсь освещать на страницах этого блога.</p>
+
+  <p>e-mail для связи: <a href="mailto:poetinthecode@gmail.com">poetinthecode@gmail.com</a></p>
+</section>
+<section>
+  <h1>Недавние заметки</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/chietyrnadtsatyi-mnoghomu-nauchil/">Четырнадцатый многому научил</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/21/pravila-effiektivnosti/">Правила эффективности</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/06/rieflieksivnyie-tielieghi/">Рефлексивные телеги</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/13/miks-starykh-idiei-ili-startapierstvo-protiv-strapiorstva/">Микс старых идей или стартаперство против страпёрства</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/28/prototip-intierfieisa-dotted/">Прототип интерфейса Dotted</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+	<h1>Twitter</h1>
+	<a class="twitter-timeline" href="https://twitter.com/poetofcode" data-widget-id="477309406560780288">Твиты пользователя @poetofcode</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ </section>
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/poetofcode">@poetofcode</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'poetofcode',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - PoetOfCode -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'poetofcoderu';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://poetofcode.ru/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku/';
+        var disqus_url = 'http://poetofcode.ru/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
