@@ -78,5 +78,5 @@ categories: ["итоги", "размышления", "рефлексия"]
 Пожалуй, в следующем посте расскажу про выводы относительно более конкретных вопросов, касаемо ведения дел: стратегии бизнеса, маркетинг, тренды и т.д
 
 <hr>
-** Писалось под песенку: **
-<object width="550" height="42"><param name="movie" value="http://embed.pleer.com/track?id=B3m1b8B4h6ttmB5q"></param><embed src="http://embed.pleer.com/track?id=B3m1b8B4h6ttmB5q" type="application/x-shockwave-flash" width="550" height="42"></embed></object> <br> <small>Прослушать или <a href="http://pleer.com/tracks/6066980Obun" target="_blank">скачать Seether The Gift бесплатно</a> на <a href="http://pleer.com/" target="_blank">Простоплеер</a></small>
+** Писалось под музыку: **
+<object width="550" height="42"><param name="movie" value="http://embed.pleer.com/track?id=B4m3a4B4h6ttmB6dz"></param><embed src="http://embed.pleer.com/track?id=B4m3a4B4h6ttmB6dz" type="application/x-shockwave-flash" width="550" height="42"></embed></object> <br> <small>Прослушать или <a href="http://pleer.com/tracks/7749148vFV6" target="_blank">скачать Seether The Gift бесплатно</a> на <a href="http://pleer.com/" target="_blank">Простоплеер</a></small>
