@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>В последний раз про .gitignore - PoetOfCode' Blog</title>
+  <title>Зачем открывать чёртов редактор - PoetOfCode' Blog</title>
   <meta name="author" content="PoetOfCode">
 
   
-  <meta name="description" content="Довольно туманным для меня вопросом при переходе с SVN на Git стал вопрос об игнорировании ненужных файлов в репозитории. Поэтому оставлю тут запись &hellip;">
+  <meta name="description" content="Я недавно прочитал один прикольный пост Джоэла Спольски. Он рассказывает о том, как двигаться вперед, делать прогресс в чём-либо. И это понимание &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://poetofcode.ru/blog/2013/02/05/v-posliednii-raz-pro-gitignore">
+  <link rel="canonical" href="http://poetofcode.ru/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="PoetOfCode' Blog" type="application/atom+xml">
@@ -119,7 +119,7 @@ $(document).ready(
   
   <header>
     
-      <h1 class="entry-title">В последний раз про .gitignore</h1>
+      <h1 class="entry-title">Зачем открывать чёртов редактор</h1>
     
     
       <p class="meta">
@@ -135,7 +135,7 @@ $(document).ready(
   
 
 
-<time datetime="2013-02-05T22:28:24+04:00" pubdate data-updated="true">Вторник,  5 Февраля 2013</time>
+<time datetime="2015-03-15T13:02:30+04:00" pubdate data-updated="true">Воскресенье, 15 Марта 2015</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://poetofcode.ru">Комментарии</a>
@@ -145,41 +145,70 @@ $(document).ready(
   </header>
 
 
-<div class="entry-content"><p>Довольно туманным для меня вопросом при переходе с SVN на Git стал вопрос об игнорировании ненужных файлов в репозитории. Поэтому оставлю тут запись, чтоб самому не забыть.</p>
+<div class="entry-content"><p style="color: #333; font-style: italic">
+Я недавно прочитал один прикольный пост Джоэла Спольски. Он рассказывает о том, как двигаться вперед, делать прогресс в чём-либо. И это понимание очень полезно именно в нашем программерском деле.<br>
 
-<p>На самом деле все не слишком сложно и доступно в странице мануала по gitignore (<em>man gitignore</em> либо <em>git help ignore</em>)</p>
+Приведу отрывок из поста, будет полезно возвращаться к нему в периоды послабления мотивации.
+</p>
+
+
+
 
 <!-- more -->
 
 
-<p>Есть всего 3 варианта, которые могут возникнуть с игнорированием файлов в Git:</p>
 
-<p>Файлы еще не добавлены под контроль версий (untracked).
-В этом случае и нужен файл <em>.gitignore</em>.
-Пример содержимого файла:</p>
 
-<pre><code>/application/cache/*
-/application/logs/*
-</code></pre>
+<div>
+<p>Многие мои дни проходят так:</p>
 
-<p>Если теперь закоммитить <em>.gitignore</em>, то содержимое этих папок (пример из файловой структуры Kohana) не будет больше интересовать git. Можете убедиться в этом, выполнив команду <em>git status</em>
-Файлы уже добавлены под контроль версий (tracked).
-Для этого случая предусмотрена команда:</p>
+<ol style="margin-left: 30px">
+<li>Прихожу на работу.
+<li>Проверяю почту, хожу по Интернету и т. д.
+<li>Решаю, что можно пообедать, прежде чем браться за работу.
+<li>Возвращаюсь с обеда.
+<li>Проверяю почту, хожу по Интернету и т. д.
+<li>Наконец, решаю, что пора начать работать.
+<li>Проверяю почту, хожу по Интернету и т. д.
+<li>Снова решаю, что теперь действительно пора начать работать.
+<li>Запускаю чертов редактор.</li>
+<li>Без передышки пишу код, пока не обнаруживаю, что уже полвосьмого вечера.</li>
+</ol>
 
-<pre><code>$ git update-index --assume-unchanged ./filename.txt
-</code></pre>
+<p>По видимому, между этапами 8 и 9 есть какой то дефект, потому что мне
+не всегда удается преодолеть находящуюся между ними пропасть. Самое
+трудное для меня – это начать. Тело, находящееся в покое, стремится сохранять состояние покоя. В моем мозгу есть что то невероятно тяжелое,
+из за чего его крайне трудно разогнать, но когда он разгонится до полной
+скорости, поддерживать ее нетрудно. <...> 
+</p>
 
-<p>Теперь новые изменения в файле <em>filename.txt</em> будут игнорироваться git&#8217;ом. Для того чтобы заставить git вновь реагировать на изменения существует обратная команда:</p>
+<p>Может быть, в этом и лежит ключ к продуктивности: <span style="font-style: italic">надо просто начать</span>. Может быть, если программирование парами эффективно, то это
+потому, что когда вы планируете со своим приятелем сеанс парного программирования, вы подстегиваете друг друга начать работу.
+</p>
 
-<pre><code>$ git update-index --no-assume-unchanged ./filename.txt
-</code></pre>
+<p>Когда я был в Израиле парашютистом, один генерал произнес перед нами небольшую речь по поводу стратегии. Когда пехота ведет бой, сообщил
+он нам, у нее может быть только одна стратегия: огонь и движение. Вы движетесь в сторону противника и одновременно ведете огонь из своего оружия. Ваш огонь вынуждает противника спрятать голову, поэтому он не может вести ответный огонь. (Это и имеет в виду солдат, когда кричит «прикрой меня». Это значит «стреляй в противника, чтобы он опустил голову
+и не мог стрелять в меня, пока я буду перебегать улицу». И это действует.)
+Движение позволяет захватить территорию и приблизиться к врагу, и тогда ваши выстрелы вернее поразят цель. Если вы не движетесь, то развитие событий станет определять противник, а это нехорошо. Если вы не ведете огонь, противник станет вести огонь по вам и уложит вас.
+</p>
 
-<p>Если файлы по ошибке попали под контроль, но быть там не должны (логи, кэш и прочие временные файлы), то удалить их оттуда можно командой:</p>
+<p>Я надолго запомнил это. Я заметил, что почти каждый тип военной стратегии, от воздушного боя до больших морских маневров, основан на идее «огня и движения». Мне понадобилось еще 15 лет, чтобы понять, что по принципу «огня и движения» вы достигаете целей в жизни. Надо хоть немного продвигаться вперед, каждый день. Пусть ваш код кривой, с ошибками и никому не нужен. Если вы неуклонно движетесь вперед, совершенствуя код и исправляя ошибки, время на вашей стороне. Будьте осторожны, когда конкуренты открывают по вам огонь. Не хотят ли они просто заставить вас отвечать на их очереди, чтобы вы не смогли двигаться дальше?
+</p>
 
-<pre><code>$ git rm --cached ./log.txt
-</code></pre>
+<p><...></p>
 
-<p>Также есть хорошие примеры в самом мануале по команде.</p>
+<p>Для небольших компаний, таких как моя, «огонь и движение» означает две вещи. Вы должны привлечь время на свою сторону, вы должны ежедневно продвигаться вперед. Рано или поздно вы победите. Все, что мне удалось вчера сделать, – это немного улучшить цветовую схему FogBUGZ.
+Это нормально. Все постепенно делается лучше. С каждым днем наша программа становится все лучше, и покупателей становится все больше, и это самое главное. Пока мы не достигли размеров Oracle, нам не нужно выдумывать грандиозные стратегии. Нам надо просто приходить каждое утро
+и пытаться запустить редактор.
+</p>
+
+<p style="color: #333; font-style: italic">
+Полный тест можно найти в книге Д. Спольски &#8220;Джоэл о программировании&#8221;
+</p>
+
+
+</div>
+
 </div>
 
 
@@ -202,12 +231,12 @@ $(document).ready(
   
 
 
-<time datetime="2013-02-05T22:28:24+04:00" pubdate data-updated="true">Вторник,  5 Февраля 2013</time>
+<time datetime="2015-03-15T13:02:30+04:00" pubdate data-updated="true">Воскресенье, 15 Марта 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/gitignore/'>gitignore</a>
+    <a class='category' href='/blog/categories/dzhoel-spol'ski/'>Джоэл Спольски</a>, <a class='category' href='/blog/categories/motivatsiia/'>мотивация</a>
   
 </span>
 
@@ -216,7 +245,7 @@ $(document).ready(
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://poetofcode.ru/blog/2013/02/05/v-posliednii-raz-pro-gitignore/" data-via="poetinthecode" data-counturl="http://poetofcode.ru/blog/2013/02/05/v-posliednii-raz-pro-gitignore/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://poetofcode.ru/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor/" data-via="poetinthecode" data-counturl="http://poetofcode.ru/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor/" >Tweet</a>
   
   
   
@@ -227,10 +256,8 @@ $(document).ready(
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/02/04/ustranieniie-probliemy-pusha-na-heroku/" title="Previous Post: Устранение проблемы push'а на Heroku">&laquo; Устранение проблемы push'а на Heroku</a>
+        <a class="basic-alignment left" href="/blog/2015/01/30/manifiest-startapiera/" title="Previous Post: Манифест стартапера">&laquo; Манифест стартапера</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/07/09/kak-napisat-sobstviennyi-plaghin-jquery-pierievod/" title="Next Post: Как написать собственный плагин jQuery [перевод]">Как написать собственный плагин jQuery [перевод] &raquo;</a>
       
     </p>
   </footer>
@@ -336,8 +363,8 @@ $(document).ready(
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://poetofcode.ru/blog/2013/02/05/v-posliednii-raz-pro-gitignore/';
-        var disqus_url = 'http://poetofcode.ru/blog/2013/02/05/v-posliednii-raz-pro-gitignore/';
+        var disqus_identifier = 'http://poetofcode.ru/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor/';
+        var disqus_url = 'http://poetofcode.ru/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor/';
         var disqus_script = 'embed.js';
       
     (function () {
