@@ -9,7 +9,7 @@
   <meta name="author" content="PoetOfCode">
 
   
-  <meta name="description" content="Я недавно прочитал один прикольный пост Джоэла Спольски. Он рассказывает о том, как двигаться вперед, делать прогресс в чём-либо. И это понимание &hellip;">
+  <meta name="description" content="Модульность приложений в Golang обеспечивается при помощи пакетов (packages) &ndash; логичесих сущностей, которые играют роль одновременно модулей и &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -116,6 +116,69 @@ $(document).ready(
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/03/pakiety-v-golang/">Пакеты в Golang</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-03T17:09:03+04:00" pubdate data-updated="true">Пятница,  3 Апреля 2015</time>
+        
+           | <a href="/blog/2015/04/03/pakiety-v-golang/#disqus_thread"
+             data-disqus-identifier="http://poetofcode.ru/blog/2015/04/03/pakiety-v-golang/">Комментарии</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Модульность приложений в Golang обеспечивается при помощи пакетов (packages) &ndash; логичесих сущностей, которые играют роль одновременно модулей и пространств имён в других языках.</p>
+
+<h3>Про GOPATH</h3>
+
+<p>Вся работа с кодом в Golang происходит в месте, называемом Workspace. На практике это директория на диске, путь к которой необходимо определить в переменной GOPATH в системе.</p>
+
+<p>Эта директория будет иметь следующую структуру:</p>
+
+<pre><code>$GOPATH
+    |_ bin
+    |_ pkg
+    |_ src  
+</code></pre>
+
+<ul>
+<li><strong>bin</strong> &ndash; сюда будут скопированы запускаемые файлы наших приложений после запуска команды go install.</li>
+<li><strong>pkg</strong> &ndash; тут будут содержаться объектные файлы пакетов (статические библиотеки с расширением .a). Во многих других языках соответствующая папка имеет название obj.</li>
+<li><strong>src</strong> &ndash; это &ldquo;точка входа&rdquo; для наших исходников. Эта папка будет содержать структуру исходников приложений и библиотек.</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/04/03/pakiety-v-golang/">Читать далее &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -732,53 +795,6 @@ $(document).ready(
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/14/blog-equals-equals-weblog/">Blog == Weblog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-14T23:06:38+04:00" pubdate data-updated="true">Среда, 14 Мая 2014</time>
-        
-           | <a href="/blog/2014/05/14/blog-equals-equals-weblog/#disqus_thread"
-             data-disqus-identifier="http://poetofcode.ru/blog/2014/05/14/blog-equals-equals-weblog/">Комментарии</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Я что-то давно не отписывался в блог. И скорее всего так случилось потому что к посту в блоге применяются слишком высокие требования. Он должен быть интересным, маленьким и в картинках.</p>
-
-<p>Но мне зачастую не интересно читать вылизанные отшлифованные статейки про то как у всех всё хорошо получается. Блоги в последнее время превратились просто в сборник полезных советов и рецептов, как кулинарная книга для домохозяйки. А блог должен быть историей жизни автора. Автор не должен стесняться описывать свои мысли на текущий момент.</p>
-
-<p><p style="text-align: center">
-<img src="/images/freedom-quotes.jpg" alt="Freedom rocks!"/>
-<p></p>
-
-<p>Вобщем, в моём блоге будет теперь много воды и чуть-чуть полезного материала: <strong>всё как в жизни</strong>. Сейчас наступило такое время, когда люди стали не нужны друг другу, никому нет ни до кого дела. Но я подумал, что для таких публичных вещей как блог &ndash; это хорошее качество людей, потому что развязывает руки, можно писать что угодно и тебя никто не осудит, ведь всем же плевать :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Следующие</a>
@@ -801,6 +817,10 @@ $(document).ready(
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/03/pakiety-v-golang/">Пакеты в Golang</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/15/zachiem-otkryvat-chiortov-riedaktor/">Зачем открывать чёртов редактор</a>
       </li>
     
@@ -814,10 +834,6 @@ $(document).ready(
     
       <li class="post">
         <a href="/blog/2014/12/27/chietyrnadtsatyi-mnoghomu-nauchil/">Четырнадцатый многому научил</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/21/pravila-effiektivnosti/">Правила эффективности</a>
       </li>
     
   </ul>
