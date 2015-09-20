@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://poetofcode.ru/sitemap.xml 
