@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 var trans map[string]string
@@ -15,7 +17,7 @@ func showHelp(progName string) {
 
 func makeTranslitArr() map[string]string {
 	translit := map[string]string{
-		" ": "_", "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e",
+		" ": "-", "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e",
 		"ё": "yo", "ж": "", "з": "z", "и": "i", "й": "j", "к": "k", "л": "l",
 		"м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t",
 		"у": "u", "ф": "f", "х": "h", "ц": "c", "ч": "ch", "ш": "sh", "щ": "shh",
@@ -52,7 +54,12 @@ func main() {
 	}
 
 	trans = makeTranslitArr()
-
 	title_orig := args[1]
-	log.Println("Title translit: " + toTranslit(title_orig))
+
+	year, month, day := time.Now().Date()
+	dateStr := fmt.Sprintf("%d-%02d-%02d", year, month, day)
+
+	postName := dateStr + "-" + toTranslit(title_orig) + ".markdown"
+
+	log.Println("Post name: " + postName)
 }
