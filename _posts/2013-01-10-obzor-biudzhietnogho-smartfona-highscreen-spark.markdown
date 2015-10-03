@@ -6,13 +6,13 @@ comments: true
 categories: [android, highscreen, spark]
 ---
 
-<p style="float: right;">
-	<img alt="Highscreen Spark" src="/images/highscreen_spark.jpg" style="width: 400px; height: 400px;"></p>
-
 Несколько последних месяцев я присматривался к недорогим моделям 
 андрофонов российского бренда Highscreen. Да-да, всё верно, Highscreen -
  это торговая марка, права на которую принадлежат российской компании 
-"Вобис Компьютер" (<a href="http://ru.wikipedia.org/wiki/Highscreen">Wikipedia</a>).</p>
+"Вобис Компьютер" (<a href="http://ru.wikipedia.org/wiki/Highscreen">Wikipedia</a>).
+
+<p style="float: right;">
+	<img alt="Highscreen Spark" src="/images/highscreen_spark.jpg" style="width: 400px; height: 400px;"></p>
 
 Выбор пал на самую бюджетную модель из доступных в продаже - <a href="http://highscreen.org/products/communicators/highscreen-spark/">Highscreen Spark</a>.
 

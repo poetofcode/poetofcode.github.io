@@ -6,11 +6,11 @@ comments: true
 categories: [JavaScript, jQuery, plugin]
 ---
 
+В продолжение [предыдущего поста](/2013/07/09/kak-napisat-sobstviennyi-plaghin-jquery-pierievod.html) про написание собственного плагина, решил сделать свой простенький, но в то же время симпатичный jQuery-плагин. Выбрал для эксперимента тему слайдеров. 
+
 <script src="/assets/libs/jquery.min.js" type="text/javascript"></script>
 <script src="/assets/jsimpression/jsImpression.js" type="text/javascript"></script>
 <link href="/stylesheets/jsimpression/jsImpression.css" rel="stylesheet" type="text/css" />
-
-В продолжение [предыдущего поста](/blog/2013/07/09/kak-napisat-sobstviennyi-plaghin-jquery-pierievod/) про написание собственного плагина, решил сделать свой простенький, но в то же время симпатичный jQuery-плагин. Выбрал для эксперимента тему слайдеров. 
 
 <!-- more -->
 

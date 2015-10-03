@@ -6,15 +6,12 @@ comments: true
 categories: [kohana, apache, ubuntu, framework]
 ---
 
-Исходные данные
----------------
+Я уже какое-то время знаком с отличным фрэймворком для PHP - Kohana. В этом посте рассмотрим, как настроить фрэймворк на машине с установленной Ubuntu с нуля и заставить его работать в связке с Apache-сервером.
 
-<ul>
-	<li>
-		ОС Ubuntu</li>
-	<li>
-		Установленный LAMP-сервер (<a href="http://help.ubuntu.ru/wiki/lamp">http://help.ubuntu.ru/wiki/lamp</a>)</li>
-</ul>
+Исходные данные
+
+* ОС Ubuntu
+* Установленный [LAMP-сервер](http://help.ubuntu.ru/wiki/lamp)
 
 <!-- more -->
 
