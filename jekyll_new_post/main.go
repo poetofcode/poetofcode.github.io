@@ -1,11 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 	"time"
 )
 
@@ -36,6 +39,18 @@ func toTranslit(orig string) string {
 	return tr_string
 }
 
+func readConfig() (map[string]interface{}, error) {
+	file, err := ioutil.ReadFile("config_go.json")
+	if err != nil {
+		return nil, err
+	}
+	var parsed interface{}
+	err = json.Unmarshal(file, &parsed)
+	config := parsed.(map[string]interface{})
+
+	return config, err
+}
+
 func findTranslitChar(chr string) string {
 	for k, _ := range trans {
 		if chr == string(k) {
@@ -43,6 +58,11 @@ func findTranslitChar(chr string) string {
 		}
 	}
 	return chr
+}
+
+type PostParams struct {
+	Name string
+	Date string
 }
 
 func main() {
@@ -56,10 +76,32 @@ func main() {
 	trans = makeTranslitArr()
 	title_orig := args[1]
 
-	year, month, day := time.Now().Date()
+	currTime := time.Now()
+	year, month, day := currTime.Date()
 	dateStr := fmt.Sprintf("%d-%02d-%02d", year, month, day)
-
 	postName := dateStr + "-" + toTranslit(title_orig) + ".markdown"
+	dateFull := currTime.Format("2006-01-02 15:04:05 Z0700")
 
-	log.Println("Post name: " + postName)
+	conf, err := readConfig()
+	if err != nil || conf["posts_path"] == nil || conf["editor_path"] == nil {
+		conf = map[string]interface{}{
+			"posts_path":  "./",
+			"editor_path": "notepad",
+		}
+	}
+
+	// Generating post body from template
+	t, err := template.ParseFiles("tmpls_go/new_post.tmpl")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file, err := os.Create(conf["posts_path"].(string) + postName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = t.Execute(file, PostParams{Name: title_orig, Date: dateFull})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
