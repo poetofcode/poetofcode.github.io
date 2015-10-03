@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"text/template"
@@ -15,7 +16,8 @@ import (
 var trans map[string]string
 
 func showHelp(progName string) {
-	log.Printf("\n\nИнструкция: укажите, пожалуйста, заголовок поста в качестве параметра командной сроки. Например:\n\n   %s \"Как я провёл лето\"\n\n", progName)
+	fmt.Printf("Инструкция: укажите, пожалуйста, заголовок поста в качестве параметра командной сроки. Например:\n\n   %s \"Как я провёл лето\"\n", progName)
+	fmt.Printf("\nКлючи:\n\n   edit - после создания поста открыть редактор для его редактирования. Пример:\n\n      %s \"Как я провёл лето\" edit\n\n", progName)
 }
 
 func makeTranslitArr() map[string]string {
@@ -60,6 +62,14 @@ func findTranslitChar(chr string) string {
 	return chr
 }
 
+func execCommand(name string, params ...string) {
+	cmd := exec.Command(name, params...)
+	err := cmd.Start()
+	if err != nil {
+		log.Print(err)
+	}
+}
+
 type PostParams struct {
 	Name string
 	Date string
@@ -68,7 +78,7 @@ type PostParams struct {
 func main() {
 	args := os.Args
 
-	if len(args) < 2 {
+	if len(args) < 2 || len(args) >= 2 && args[1] == "help" {
 		showHelp(filepath.Base(args[0]))
 		return
 	}
@@ -96,12 +106,20 @@ func main() {
 		log.Fatal(err)
 	}
 
-	file, err := os.Create(conf["posts_path"].(string) + postName)
+	postPath := conf["posts_path"].(string) + postName
+	file, err := os.Create(postPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	err = t.Execute(file, PostParams{Name: title_orig, Date: dateFull})
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	// Starting editor
+	if len(args) > 2 {
+		if args[2] == "edit" {
+			execCommand(conf["editor_path"].(string), postPath)
+		}
 	}
 }

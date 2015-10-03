@@ -1,4 +1,4 @@
 {
-	"posts_path": "../_posts/",
+	"posts_path": "../../_posts/",
 	"editor_path": "subl"
 }
