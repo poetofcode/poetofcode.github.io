@@ -12,3 +12,4 @@ github_username:  poetofcode
 # Build settings
 markdown: kramdown
 highlighter: rouge
+exclude: [_excluded, build_watch.bat, start_server.bat]
