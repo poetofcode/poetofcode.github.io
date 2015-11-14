@@ -30,3 +30,11 @@ SSH-доступ к удалённой машине используется с�
 В ssh особое внимание уделяется безопасности передачи данных. Весь передаваемый трафик в ssh шифруется. А при установлении соединения клиент должен авторизоваться на сервере посредством пароля или с помощью пары ключей.
 
 [Отличная статья](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys) про основы ssh и, в частности, про ключи приведена в блоге облачного хостера DigitalOcean.
+
+По ssh:
+-------
+https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys
+
+http://siteadmin.gforge.inria.fr/ssh_windows.html
+
+http://jamesmcdonald.id.au/faqs/others/putty/PuTTY%20Command%20Line%20Options.txt
