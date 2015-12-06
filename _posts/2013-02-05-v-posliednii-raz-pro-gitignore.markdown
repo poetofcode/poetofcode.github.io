@@ -19,7 +19,7 @@ categories: [git, gitignore]
 
 Пример содержимого файла:
 	
-{% highlight sh %}
+{% highlight bash %}
 /application/cache/*
 /application/logs/*
 {% endhighlight %}
@@ -29,15 +29,15 @@ categories: [git, gitignore]
 ### Файлы уже добавлены под контроль версий (tracked).
 
 Для этого случая предусмотрена команда:
-{% highlight shell %}
+{% highlight bash %}
 	$ git update-index --assume-unchanged ./filename.txt
 {% endhighlight %}
 Теперь новые изменения в файле `filename.txt` будут игнорироваться **git**'ом. Для того чтобы заставить **git** вновь реагировать на изменения существует обратная команда:
-{% highlight shell %}
+{% highlight bash %}
 	$ git update-index --no-assume-unchanged ./filename.txt
 {% endhighlight %}
 Если файлы по ошибке попали под контроль, но быть там не должны (логи, кэш и прочие временные файлы), то удалить их оттуда можно командой:
-{% highlight shell %}
+{% highlight bash %}
 	$ git rm --cached ./log.txt
 {% endhighlight %}
 Также есть хорошие примеры в самом мануале по команде.
