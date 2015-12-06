@@ -6,15 +6,9 @@ comments: true
 categories: 
 ---
 
-<style>
-	b {
-		font-style: normal;
-		font-weight: normal;
-	}
-</style>
-
 <p>
 	<b>Если вы никогда ранее не писали плагины для jQuery - не беда, чтобы сделать это требуется всего лишь несколько простых шагов. Следуя инструкциям, вы можете разработать плагин, который выглядит как нативный jQuery-метод.</span></b></p>
+
 <p>
 	<b id="internal-source-marker_0.7454807010944933" style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-weight: normal;"><span style="font-size: 19px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">Зачем создавать jQuery плагин?</span></b></p>
 <p>
@@ -422,3 +416,10 @@ test(&quot;Watermark Должен Очищаться При Получении �
 	&nbsp;</p>
 <p>
 	<b id="internal-source-marker_0.7454807010944933" style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-weight: normal;"><em><span>Подготовлено по материалам источника: </span></em><a href="http://msdn.microsoft.com/en-us/magazine/ff608209.aspx"><span style="font-size: 15px; font-family: Arial; color: rgb(17, 85, 204); background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">http://msdn.microsoft.com/en-us/magazine/ff608209.aspx</span></a></b></p>
+
+<style>
+	b {
+		font-style: normal;
+		font-weight: normal;
+	}
+</style>
