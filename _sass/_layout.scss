@@ -250,3 +250,38 @@
         border-radius: 150px;
     }
 }
+
+
+/* Welcome section */
+
+$welcome_content_height: 400px;
+
+#welcome {
+    height: 100%;
+    overflow: hidden;
+
+    .foreground {
+        position: absolute;
+        z-index: 10;
+        top: 0px;
+        width: 100%;
+        text-align: center;
+        top: 50%;
+        height: $welcome_content_height;
+        margin-top: -$welcome_content_height/2;
+
+        img {
+            width: 180px;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+    }
+}
