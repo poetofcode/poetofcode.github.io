@@ -259,6 +259,7 @@ $welcome_content_height: 400px;
 #welcome {
     height: 100%;
     overflow: hidden;
+    position: relative;
 
     .foreground {
         position: absolute;
@@ -270,18 +271,36 @@ $welcome_content_height: 400px;
         height: $welcome_content_height;
         margin-top: -$welcome_content_height/2;
 
+        @include media-query($on-palm) {
+            height: $welcome_content_height/2;
+            margin-top: -$welcome_content_height/4;
+        }
+
         img {
             width: 180px;
+
+            @include media-query($on-palm) {
+                width: 100px;
+            }
         }
 
         .title {
             font-size: 4rem;
             font-weight: bold;
+
+            @include media-query($on-palm) {
+                font-size: 2rem;
+            }
         }
 
         .description {
             font-size: 1.5rem;
             font-style: italic;
+
+            @include media-query($on-palm) {
+                font-size: 1rem;
+            }
         }
     }
+
 }
