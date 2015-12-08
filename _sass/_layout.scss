@@ -304,3 +304,39 @@ $welcome_content_height: 400px;
     }
 
 }
+
+
+/* Pagination */
+
+.pagination {
+    margin-top: 80px;
+    margin-bottom: 50px;
+    position: relative;
+    height: 30px;
+
+    .prev_container, .next_container, .page_container {
+        position: absolute;
+        width: 30%;
+    }
+
+    .page_container {
+        text-align: center;
+        left: 50%;
+        margin-left: -15%;
+    }
+    .next_container {
+        text-align: right;
+        right: 0px;
+    }
+
+    .previous, .page_number, .next {
+        border-radius: 30px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .previous:hover, .next:hover {
+        background: #eee;
+        text-decoration: none;
+    }
+}
