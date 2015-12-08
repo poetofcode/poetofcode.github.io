@@ -38,7 +38,6 @@ ul, ol, dl, figure,
 }
 
 
-
 /**
  * Images
  */
@@ -82,7 +81,7 @@ li {
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+    font-weight: bold;
 }
 
 
@@ -129,7 +128,7 @@ blockquote {
  */
 pre,
 code {
-    font-size: 15px;
+    font-size: 18px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
     background-color: #eef;
