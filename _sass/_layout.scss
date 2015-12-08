@@ -185,11 +185,11 @@
 
 .post-link {
     display: block;
-    font-size: 24px;
+    font-size: 36px;
 }
 
 .post-preview {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 
@@ -274,6 +274,11 @@ $welcome_content_height: 400px;
         @include media-query($on-palm) {
             height: $welcome_content_height/2;
             margin-top: -$welcome_content_height/4;
+        }
+
+        a {
+            text-decoration: none;
+            color: $text-color;
         }
 
         img {

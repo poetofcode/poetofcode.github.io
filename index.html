@@ -54,6 +54,11 @@ layout: default
     }
 
     $(function() {
+      $('#welcome a').hover(function() {
+        console.log('On hover');
+        $(this).find('img').toggleClass('hidden');
+      });
+
       $( window ).resize(function() {
         updateCanvas();
       });
