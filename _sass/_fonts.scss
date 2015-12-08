@@ -1,0 +1,35 @@
+$base_fonts_url: '/fonts';
+
+@font-face {
+    font-family: 'Aquarion';
+    src: local('Aquarion'), url('#{$base_fonts_url}/aquarion/aquarion.woff2') format('woff2'), url('#{$base_fonts_url}/aquarion/aquarion.woff') format('woff'), url('#{$base_fonts_url}/aquarion/aquarion.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*
+@font-face {
+    font-family: 'Arimo';
+    src: local('Arimo'), url('#{$base_fonts_url}/arimo/arimo.woff2') format('woff2'), url('#{$base_fonts_url}/arimo/arimo.woff') format('woff'), url('#{$base_fonts_url}/arimo/arimo.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arimo';
+    src: local('Arimo Italic'), local('Arimo-Italic'), url('#{$base_fonts_url}/arimo/arimoitalic.woff2') format('woff2'), url('#{$base_fonts_url}/arimo/arimoitalic.woff') format('woff'), url('#{$base_fonts_url}/arimo/arimoitalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arimo';
+    src: local('Arimo Bold'), local('Arimo-Bold'), url('#{$base_fonts_url}/arimo/arimobold.woff2') format('woff2'), url('#{$base_fonts_url}/arimo/arimobold.woff') format('woff'), url('#{$base_fonts_url}/arimo/arimobold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arimo';
+    src: local('Arimo Bold Italic'), local('Arimo-BoldItalic'), url('#{$base_fonts_url}/arimo/arimobolditalic.woff2') format('woff2'), url('#{$base_fonts_url}/arimo/arimobolditalic.woff') format('woff'), url('#{$base_fonts_url}/arimo/arimobolditalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+*/

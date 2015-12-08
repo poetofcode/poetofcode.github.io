@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Aquarion';
+    src: local('Aquarion'), url('aquarion.woff2') format('woff2'), url('aquarion.woff') format('woff'), url('aquarion.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
