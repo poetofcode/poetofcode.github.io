@@ -174,7 +174,7 @@
     list-style: none;
 
     > li {
-        margin-bottom: $spacing-unit;
+        margin-bottom: $spacing-unit*2.5;
     }
 }
 
@@ -188,8 +188,8 @@
     font-size: 36px;
 }
 
-.post-preview {
-    margin-bottom: 80px;
+.comments-count {
+    margin-top: 10px;
 }
 
 

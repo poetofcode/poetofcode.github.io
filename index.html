@@ -13,7 +13,13 @@ layout: default
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
 
-        <div class="post-preview">{{ post.excerpt | strip_html }}</div>
+        <div class="post-preview">
+          {{ post.excerpt | strip_html }}
+        </div>
+
+        <div class="comments-count">
+          <a href="{{ post.url | prepend: site.baseurl }}#disqus_thread">Комментарии</a>
+        </div>
       </li>
     {% endfor %}
   </ul>
