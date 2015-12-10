@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Несколько тем в IT на которые стоит обратить внимание"
+title: "Несколько тем в IT, на которые стоит обратить внимание"
 date: 2015-12-10 13:41:56 +0300
 comments: true
 categories: 
@@ -12,7 +12,7 @@ categories:
 
 Люди есть...
 
-* в соц. сетях
+* в социальных сетях
 * на всяких тематических сервисах - [Google Play](https://play.google.com/store), [Habrahabr](http://habrahabr.ru/), [YouTube](http://www.youtube.com/) и т.д.
 * просто в интернетах - блоги, форумы (прочие контентные сайты)
 
