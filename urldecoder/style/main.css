@@ -38,8 +38,17 @@ button {
 }
 
 div.result {
+	font-family: monospace;
 	margin-top: 20px;
 	word-wrap: break-word;
+}
+
+div.result a {
+	text-decoration: none;
+}
+
+div.result a:hover {
+	text-decoration: underline;
 }
 
 .error {
