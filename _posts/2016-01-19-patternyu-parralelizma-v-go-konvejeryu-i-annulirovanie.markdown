@@ -6,24 +6,24 @@ comments: true
 categories: 
 ---
 
-Go's concurrency primitives make it easy to construct streaming data pipelines that make efficient use of I/O and multiple CPUs. This article presents examples of such pipelines, highlights subtleties that arise when operations fail, and introduces techniques for dealing with failures cleanly.
+Притивы Go для многопоточности делают простым создание конвейеров данных, которые эффективно используют операции ввода/вывода и многопроцессорные системы. Этот пост показывает примеры таких конвейеров, выделяя тонкости, которые возникают, когда операции неудачно прерываются, а также даётся введение в техники для чистой обработки таких отказов.
 
-# What is a pipeline? #
+# Что такое конвейер? #
 
-There's no formal definition of a pipeline in Go; it's just one of many kinds of concurrent programs. Informally, a pipeline is a series of stages connected by channels, where each stage is a group of goroutines running the same function. In each stage, the goroutines
+Формальное определение конвейера в Go отсутствует, это всего лишь один вид многопоточных программ из многих. Неформально, конвейер это серия стадий, соединённых каналами, где каждая стадия является группой гоурутин, запускаемых одной функцией. В каждой стадии гоурутины 
+* принимают значения от вышестоящих через входящие каналы
+* выполняют некоторую функцию с этими данными, обычно производя новые значения
+* посылают значения дальше через исходящие каналы
 
-receive values from upstream via inbound channels
-perform some function on that data, usually producing new values
-send values downstream via outbound channels
-Each stage has any number of inbound and outbound channels, except the first and last stages, which have only outbound or inbound channels, respectively. The first stage is sometimes called the source or producer; the last stage, the sink or consumer.
+Каждая стадия имеет любое количество входящих и исходящих каналов, за исключением первой и последней, которые имеют только либо исходящие либо входящие каналы, соответственно. Первая стадия иногда назвается источником или генератором, последняя стадия - приёмником или потребителем.
 
-We'll begin with a simple example pipeline to explain the ideas and techniques. Later, we'll present a more realistic example.
+Мы начнём с простого примера конвейера, чтобы объяснить идеи и техники. Позже, мы покажем более практичный пример. 
 
-# Squaring numbers #
+# Возведение чисел в квадрат #
 
-Consider a pipeline with three stages.
+Рассмотрим конвейер с тремя стадиями.
 
-The first stage, gen, is a function that converts a list of integers to a channel that emits the integers in the list. The gen function starts a goroutine that sends the integers on the channel and closes the channel when all the values have been sent:
+Первая стадия, `gen` - это функция, которая конвертирует список целых чисел в канал, который отдаёт целые числа из списка. Функция `gen` запускает гоурутину, которая шлёт целые числа в канал и закрывает канал, когда все значения будут посланы:
 
 {% highlight go %}
 func gen(nums ...int) <-chan int {
@@ -37,7 +37,8 @@ func gen(nums ...int) <-chan int {
     return out
 }
 {% endhighlight %}
-The second stage, sq, receives integers from a channel and returns a channel that emits the square of each received integer. After the inbound channel is closed and this stage has sent all the values downstream, it closes the outbound channel:
+
+Вторая стадия, `sq`, принимает целые числа из канала и возвращает канал, который отдаёт квадрат каждого принятого целого числа. После того как входящий канал закроется и эта стадия пошлёт все значения вниз, закроется исходящий канал:
 
 {% highlight go %}
 func sq(in <-chan int) <-chan int {
@@ -51,7 +52,8 @@ func sq(in <-chan int) <-chan int {
     return out
 }
 {% endhighlight %}
-The main function sets up the pipeline and runs the final stage: it receives values from the second stage and prints each one, until the channel is closed:
+
+Функция `main` настраивает конвейер и запускает финальную стадию: значения принимаются из второй стадии и выводятся до тех пор, пока канал не закроется:
 
 {% highlight go %}
 func main() {
@@ -65,7 +67,7 @@ func main() {
 }
 {% endhighlight %}
 
-Since sq has the same type for its inbound and outbound channels, we can compose it any number of times. We can also rewrite main as a range loop, like the other stages:
+Поскольку `sq` имеет тот же тип своих входящего и исходящего каналов (от переводчика - в данном случае тип `int`), мы можем запускать её любое количество раз. Мы также можем переписать `main` в виде цикла по диапазону значений, как и другие стадии:
 
 {% highlight go %}
 func main() {
@@ -76,13 +78,13 @@ func main() {
 }
 {% endhighlight %}
 
-# Fan-out, fan-in #
+# Распределение и сведение #
 
-Multiple functions can read from the same channel until that channel is closed; this is called fan-out. This provides a way to distribute work amongst a group of workers to parallelize CPU use and I/O.
+Несколько функций могут читать из одного каннала до тех пор пока канал не закроется, это называется *распределение* (fan-out). Это обеспечивает способ рапределения работы между группой воркеров для распараллеливания использования CPU и ввода/вывода.
 
-A function can read from multiple inputs and proceed until all are closed by multiplexing the input channels onto a single channel that's closed when all the inputs are closed. This is called fan-in.
+Функция может читать из нескольких входов и работать до тех пор пока все они не закроются посредством соединения (мультиплексирования) входящих каналов в один канал, который закроется, когда будут закрыты все входящие каналы. Это называется *сведение* (fan-in).
 
-We can change our pipeline to run two instances of sq, each reading from the same input channel. We introduce a new function, merge, to fan in the results:
+Мы можем поменять наш конвейер для запуска двух экхемпляров `sq`, где каждый читает из общего входящего канала. Мы вводим новую функцию `merge` для сведения результатов:
 
 {% highlight go %}
 func main() {
@@ -98,9 +100,10 @@ func main() {
     }
 }
 {% endhighlight %}
-The merge function converts a list of channels to a single channel by starting a goroutine for each inbound channel that copies the values to the sole outbound channel. Once all the output goroutines have been started, merge starts one more goroutine to close the outbound channel after all sends on that channel are done.
 
-Sends on a closed channel panic, so it's important to ensure all sends are done before calling close. The sync.WaitGroup type provides a simple way to arrange this synchronization:
+Функция `merge` конвертирует список каналов в один канал посредством запуска гоурутины для каждого входящего канала, которая копирует значения в единственный исходящий канал. Как только все исходящие гоурутины будут запущены, `merge` запускает ещё одну гоурутину для того чтобы закрыть исходящий канал после того как все передачи в этот канал будут завершены.
+
+Пеередачи в закрытый канал вызывают `panic`, поэтому очень важно убедиться, что все передачи завершены до вызова `close`. Тип `sync.WaitGroup` предоставляет простой способ для обеспечения такой синхронизации: 
 
 {% highlight go %}
 func merge(cs ...<-chan int) <-chan int {
