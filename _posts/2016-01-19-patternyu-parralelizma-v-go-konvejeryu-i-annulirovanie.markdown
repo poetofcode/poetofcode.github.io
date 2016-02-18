@@ -134,18 +134,18 @@ func merge(cs ...<-chan int) <-chan int {
 }
 {% endhighlight %}
 
-# Stopping short #
+# Краткое пояснение #
 
-There is a pattern to our pipeline functions:
+Для наших функций конвейера действует такой шаблон(паттерн):
 
-stages close their outbound channels when all the send operations are done.
-stages keep receiving values from inbound channels until those channels are closed.
-This pattern allows each receiving stage to be written as a range loop and ensures that all goroutines exit once all values have been successfully sent downstream.
+* стадии закрывают свои исходящие каналы, когда все операции отсылки завершены.
+* стадии принимают значения из входящих каналов до тех пор пока эти каналы не будут закрыты.
 
-But in real pipelines, stages don't always receive all the inbound values. Sometimes this is by design: the receiver may only need a subset of values to make progress. More often, a stage exits early because an inbound value represents an error in an earlier stage. In either case the receiver should not have to wait for the remaining values to arrive, and we want earlier stages to stop producing values that later stages don't need.
+Этот паттерн позволяет каждой принимающей стадии быть записанной в виде цикла по диапазону и гарантировать, что все гоурутины завершаться в момент когда все значения будут успешно переданы далее.
 
-In our example pipeline, if a stage fails to consume all the inbound values, the goroutines attempting to send those values will block indefinitely:
+Но в реальных конвейерах, стадии не вседа принимают все входящие значения. Иногда бывает спроектировано так: приёмнику возможно нужна только часть данных, чтобы продолжить работу. Наиболее часто, стадия завершается раньше, потому что входящее значение говорит об ошибке на предыдущей стадии. Или в другом случае приёмник не должен дожидаться пока придут оставшиеся данные, и мы хотим, чтобы предыдущие стадии завершили отправку значений, которые не нужны последующим.
 
+В примере нашего конвейера, если стадия в результате сбоя не может принять входящие значения, гоурутины, пытаясь послать эти значения, будут навсегда заблокированы:
 
 {% highlight go %}
     // Consume the first value from output.
@@ -157,9 +157,9 @@ In our example pipeline, if a stage fails to consume all the inbound values, the
 }
 {% endhighlight %}
 
-This is a resource leak: goroutines consume memory and runtime resources, and heap references in goroutine stacks keep data from being garbage collected. Goroutines are not garbage collected; they must exit on their own.
+Это утечка ресурсов: гоурутины расходуют память и процессорное время, а ссылки на переменные в стеке гоурутины защищают данные от сборщика мусора. Гоурутины не подлежат автоматическому очищению сборщиком мусора, они должны завершиться самостоятельно.
 
-We need to arrange for the upstream stages of our pipeline to exit even when the downstream stages fail to receive all the inbound values. One way to do this is to change the outbound channels to have a buffer. A buffer can hold a fixed number of values; send operations complete immediately if there's room in the buffer:
+Нам необходимо првести в порядок вышестоящие стадии нашего конвейера, чтобы они завершались, когда нижестоящие стадии из-за сбоя не могут принять все входящие данные. Одним способом сделать это является изменение исходящих каналов на каналы с буфером. Буфер может хранить фиксированное число значений, операции посылки завершаются немедленно, если есть место в буфере:
 
 {% highlight go %}
 c := make(chan int, 2) // buffer size 2
@@ -168,7 +168,7 @@ c <- 2  // succeeds immediately
 c <- 3  // blocks until another goroutine does <-c and receives 1
 {% endhighlight %}
 
-When the number of values to be sent is known at channel creation time, a buffer can simplify the code. For example, we can rewrite gen to copy the list of integers into a buffered channel and avoid creating a new goroutine:
+Когда число значений к посылке известно на момент создания канала, буфер может упростить код. Для примера, мы можем переписать функцию `gen` для копирования списка целых чисел в буфферизованный канал и избежать создания новой гоурутины:
 
 {% highlight go %}
 func gen(nums ...int) <-chan int {
@@ -181,7 +181,7 @@ func gen(nums ...int) <-chan int {
 }
 {% endhighlight %}
 
-Returning to the blocked goroutines in our pipeline, we might consider adding a buffer to the outbound channel returned by merge:
+Возвращаясь к блокирующим гоурутинам в нашем конвейере, мы должны учесть добавление буфера к исходящему каналу, который возвращает функция `merge`:
 
 {% highlight go %}
 func merge(cs ...<-chan int) <-chan int {
@@ -190,14 +190,13 @@ func merge(cs ...<-chan int) <-chan int {
     // ... the rest is unchanged ...
 {% endhighlight %}
 
-While this fixes the blocked goroutine in this program, this is bad code. The choice of buffer size of 1 here depends on knowing the number of values merge will receive and the number of values downstream stages will consume. This is fragile: if we pass an additional value to gen, or if the downstream stage reads any fewer values, we will again have blocked goroutines.
+Хотя это устраняет блокирование гоурутины в нашей программе, это плохой код. Выбор размера буфера в 1 единицу здесь зависит от знания числа значений, которые будет принимать `merge` и числа значений, которые нижестоящие стадии будут принимать. Это очень хрупкое решение: если мы передаём дополнительное значение в `gen` или если нижестоящая стадия читает меньшее количество значений, у нас будут снова заблокированные гоурутины.
 
-Instead, we need to provide a way for downstream stages to indicate to the senders that they will stop accepting input.
+Вместо этого, нам нужно обеспечить способ для нижестоящих стадий, чтобы уведомить отправителей, что они (прим.автора - нижестоящие стадии) будут прекращать приём.
 
-# Explicit cancellation #
+# Явное аннулирование #
 
-When main decides to exit without receiving all the values from out, it must tell the goroutines in the upstream stages to abandon the values they're trying it send. It does so by sending values on a channel called done. It sends two values since there are potentially two blocked senders:
-
+Когда `main` решает завершиться без приёма всех исходящих значений, она должна уведомить вышестоящие гоурутины отменить пытаться отсылать данные. Она делает это путём передачи значений в канал, который называется `done`. Передаются два значения поскольку есть два потенциально блокирующих отправителя:
 
 {% highlight go %}
 func main() {
@@ -218,7 +217,7 @@ func main() {
 }
 {% endhighlight %}
 
-The sending goroutines replace their send operation with a select statement that proceeds either when the send on out happens or when they receive a value from done. The value type of done is the empty struct because the value doesn't matter: it is the receive event that indicates the send on out should be abandoned. The output goroutines continue looping on their inbound channel, c, so the upstream stages are not blocked. (We'll discuss in a moment how to allow this loop to return early.)
+Посылающие гоурутины заменяют свои операции отсылки на оператор `select`, который срабатывает либо, когда происходит отправка в `out`, либо, когда принимается значение из `done`. Тип значения `done` является пустой структурой, поскольку значение не важно: тут принимается событие, которое указывает, что отправка в `out` должна быть прервана. Гоурутина `output` продолжает выполнение цикла на своём входящем канале `c`, таким образом вышестоящие стадии не блокируются. (Скоро мы обсудим, как позволить этому циклу завершаться раньше.) 
 
 {% highlight go %}
 func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
@@ -240,11 +239,11 @@ func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
     // ... the rest is unchanged ...
 {% endhighlight %}
 
-This approach has a problem: each downstream receiver needs to know the number of potentially blocked upstream senders and arrange to signal those senders on early return. Keeping track of these counts is tedious and error-prone.
+У этого способа есть проблема: каждый нижестоящий приёмник должен знать число потенциально блокирующих вышестоящих отправителей и обеспечивать уведомление этих отправителей о раннем завершении. Отслеживание этих чисел утомительно и подвержено ошибкам.
 
-We need a way to tell an unknown and unbounded number of goroutines to stop sending their values downstream. In Go, we can do this by closing a channel, because a receive operation on a closed channel can always proceed immediately, yielding the element type's zero value.
+Нам нужен способ известить о неизвестное и непривязанное число гоурутин о том, что необходимо прекратить отправку значений вниз. В Go, мы можем сделать это с помощью закрытия канала, поскольку операция приёма на закрытом канале всегда происходит немедленно, приводя к нулевому значению типа элемента.
 
-This means that main can unblock all the senders simply by closing the done channel. This close is effectively a broadcast signal to the senders. We extend each of our pipeline functions to accept done as a parameter and arrange for the close to happen via a defer statement, so that all return paths from main will signal the pipeline stages to exit.
+Это означает, что `main` может разблокировать всех отправителей просто закрыв канал `done`. Это закрытие является эффективным широковещательным сигналом для отправителей. Мы расширяем каждый из наших функций конвейера для приёма канала `done` в качестве параметра и принятия мер, чтобы закрытие произошло посредством выражения `defer`, таким образом, чтобы все пути завершения из `main` завершали стадии конвейера.
 
 {% highlight go %}
 func main() {
@@ -268,7 +267,7 @@ func main() {
 }
 {% endhighlight %}
 
-Each of our pipeline stages is now free to return as soon as done is closed. The output routine in merge can return without draining its inbound channel, since it knows the upstream sender, sq, will stop attempting to send when done is closed. output ensures wg.Done is called on all return paths via a defer statement:
+Каждая стадия нашего кнвейера теперь свободно может завершиться как только будет закрыт канал `done`. Гоурутина `output` в функции `merge` может завершиться без дожидания приёма всех данных из своего входящего канала, поскольку она знает, что вышестоящий отправитель `sq` завершит попытки отправки, когда завершиться `done`. `output` гарантирует вызов `wg.Done` при любых способах выхода посредством выражения `defer`: 
 
 {% highlight go %}
 func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
@@ -291,7 +290,7 @@ func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
     // ... the rest is unchanged ...
 {% endhighlight %}
 
-Similarly, sq can return as soon as done is closed. sq ensures its out channel is closed on all return paths via a defer statement:
+Похожим образом, `sq` может возвратиться как только `done` будет закрыт. `sq` гарантирует, что её канал будет закрыт в любых случаях выхода с помощью `defer`:
 
 {% highlight go %}
 func sq(done <-chan struct{}, in <-chan int) <-chan int {
@@ -310,11 +309,12 @@ func sq(done <-chan struct{}, in <-chan int) <-chan int {
 }
 {% endhighlight %}
 
-Here are the guidelines for pipeline construction:
+Вот правила для построения конвейера:
 
-stages close their outbound channels when all the send operations are done.
-stages keep receiving values from inbound channels until those channels are closed or the senders are unblocked.
-Pipelines unblock senders either by ensuring there's enough buffer for all the values that are sent or by explicitly signalling senders when the receiver may abandon the channel.
+* стадии закрывают свои исходящие каналы, когда все операции отправки будут завершены.
+* стадии продолжают принимать значения из входящих каналов до тех пор, пока эти каналы не станут закрыты, либо отправители не будут разблокированны.
+
+Конвейеры разблокируют отправителей либо убедившись, что есть место в буфере для всех значений, которые нужно послать, либо посредством явного уведомления отправителей, когда приёмник может прервать канал.
 
 # Digesting a tree #
 
