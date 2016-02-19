@@ -192,7 +192,7 @@ func merge(cs ...<-chan int) <-chan int {
 
 Хотя это устраняет блокирование гоурутины в нашей программе, это плохой код. Выбор размера буфера в 1 единицу здесь зависит от знания числа значений, которые будет принимать `merge` и числа значений, которые нижестоящие стадии будут принимать. Это очень хрупкое решение: если мы передаём дополнительное значение в `gen` или если нижестоящая стадия читает меньшее количество значений, у нас будут снова заблокированные гоурутины.
 
-Вместо этого, нам нужно обеспечить способ для нижестоящих стадий, чтобы уведомить отправителей, что они (прим.автора - нижестоящие стадии) будут прекращать приём.
+Вместо этого, нам нужно обеспечить способ для нижестоящих стадий, чтобы уведомить отправителей, что они (прим.пер. - нижестоящие стадии) будут прекращать приём.
 
 # Явное аннулирование #
 
@@ -316,11 +316,13 @@ func sq(done <-chan struct{}, in <-chan int) <-chan int {
 
 Конвейеры разблокируют отправителей либо убедившись, что есть место в буфере для всех значений, которые нужно послать, либо посредством явного уведомления отправителей, когда приёмник может прервать канал.
 
-# Digesting a tree #
+# Создание дайджеста каталога  #
 
-Let's consider a more realistic pipeline.
+Давайте представим 
 
-MD5 is a message-digest algorithm that's useful as a file checksum. The command line utility md5sum prints digest values for a list of files.
+Давайте рассмотрим более реалистичный конвейер.
+
+MD5 это алгоритм дайджеста сообшений, который удобно использовать для подсчёта контрольных сумм файлов. Утилита `md5sum` печатает значения дайджестов для списка файлов.
 
 {% highlight bash %}
 % md5sum *.go
@@ -329,7 +331,7 @@ ee869afd31f83cbb2d10ee81b2b831dc  parallel.go
 b88175e65fdcbc01ac08aaf1fd9b5e96  serial.go
 {% endhighlight %}
 
-Our example program is like md5sum but instead takes a single directory as an argument and prints the digest values for each regular file under that directory, sorted by path name.
+Пример нашей программы похож на `md5sum`, но вместо этого принимает единственную директорию в качестве аргумента и печатает значения дайджестов для каждого обычного файла (прим.пер. - не каталога) в этой директории, отсортировав по имени.
 
 {% highlight bash %}
 % go run serial.go .
@@ -338,7 +340,7 @@ ee869afd31f83cbb2d10ee81b2b831dc  parallel.go
 b88175e65fdcbc01ac08aaf1fd9b5e96  serial.go
 {% endhighlight %}
 
-The main function of our program invokes a helper function MD5All, which returns a map from path name to digest value, then sorts and prints the results:
+Функция `main` нашей программы включает функцию-хелпер `MD5All`, которая возвращает хэш-мэп от имени пути к значению дайджеста, затем сортирует и выводит результат: 
 
 {% highlight go %}
 func main() {
@@ -360,7 +362,7 @@ func main() {
 }
 {% endhighlight %}
 
-The MD5All function is the focus of our discussion. In serial.go, the implementation uses no concurrency and simply reads and sums each file as it walks the tree.
+Функция `MD5All` это ключевой момент нашего обсуждения. В `serial.go` реализация не использует многопоточность и просто читает и создаёт сумму для каждого файла, обходя каталог.
 
 {% highlight go %}
 // MD5All reads all the files in the file tree rooted at root and returns a map
@@ -389,9 +391,9 @@ func MD5All(root string) (map[string][md5.Size]byte, error) {
 }
 {% endhighlight %}
 
-# Parallel digestion #
+# Параллельный подсчёт дайджестов #
 
-In parallel.go, we split MD5All into a two-stage pipeline. The first stage, sumFiles, walks the tree, digests each file in a new goroutine, and sends the results on a channel with value type result:
+В `parallel.go` мы разделяем `MD5All` в двух-ступенчатый конвейер. Первая стадия `sumFiles` пробегает каталог, подсчитывает дайджест каждого файла в новой гоурутине и отправляет результаты на канал со значением типа результата:
 
 {% highlight go %}
 type result struct {
@@ -401,7 +403,7 @@ type result struct {
 }
 {% endhighlight %}
 
-sumFiles returns two channels: one for the results and another for the error returned by filepath.Walk. The walk function starts a new goroutine to process each regular file, then checks done. If done is closed, the walk stops immediately:
+`sumFiles` возвращает два канала: один для результатов и другой для ошибки, возвращённой `filepath.Walk`. Функция обхода запускает новую гоурутину для обработки каждого обычного файла, затем проверяет `done`. Если `done` закрыт, обход немедленно завершается:
 
 {% highlight go %}
 func sumFiles(done <-chan struct{}, root string) (<-chan result, <-chan error) {
@@ -448,7 +450,7 @@ func sumFiles(done <-chan struct{}, root string) (<-chan result, <-chan error) {
 }
 {% endhighlight %}
 
-MD5All receives the digest values from c. MD5All returns early on error, closing done via a defer:
+`MD5All` принимает значение дайджеста от `c`. `MD5All` завершается раньше при ошибке, закрывая `done` посредством оператора `defer`: 
 
 {% highlight go %}
 func MD5All(root string) (map[string][md5.Size]byte, error) {
@@ -473,13 +475,13 @@ func MD5All(root string) (map[string][md5.Size]byte, error) {
 }
 {% endhighlight %}
 
-# Bounded parallelism #
+# Ограниченный параллелизм #
 
-The MD5All implementation in parallel.go starts a new goroutine for each file. In a directory with many large files, this may allocate more memory than is available on the machine.
+Реализация `MD5All` в `parallel.go` стартует новую гоурутину для каждого файла. В каталоге с большим количеством весомых файлов, это может потребовать больше памяти, чем доступно в системе. 
 
-We can limit these allocations by bounding the number of files read in parallel. In bounded.go, we do this by creating a fixed number of goroutines for reading files. Our pipeline now has three stages: walk the tree, read and digest the files, and collect the digests.
+Мы можем лимитировать эти потребления путём огрраничения числа файлов, читаемых параллельно. В `bounded.go` мы делаем это путём создания фиксированного количества гоурутин для чтения файлов. Наш конвейер теперь имеет три стадии: обход каталога, чтение и подсчёт дайджестов файлов и сбор дайджестов.
 
-The first stage, walkFiles, emits the paths of regular files in the tree:
+Первая стадия `wakFiles` отдаёт пути обычных файлов в каталоге:
 
 {% highlight go %}
 func walkFiles(done <-chan struct{}, root string) (<-chan string, <-chan error) {
@@ -508,7 +510,7 @@ func walkFiles(done <-chan struct{}, root string) (<-chan string, <-chan error) 
 }
 {% endhighlight %}
 
-The middle stage starts a fixed number of digester goroutines that receive file names from paths and send results on channel c:
+Средняя стадия стартует фиксированное количество гоурутин-дайджестеров, который принимают имена файлов из путей и отправляют результаты в канал `c`: 
 
 {% highlight go %}
 func digester(done <-chan struct{}, paths <-chan string, c chan<- result) {
@@ -523,7 +525,7 @@ func digester(done <-chan struct{}, paths <-chan string, c chan<- result) {
 }
 {% endhighlight %}
 
-Unlike our previous examples, digester does not close its output channel, as multiple goroutines are sending on a shared channel. Instead, code in MD5All arranges for the channel to be closed when all the digesters are done:
+В отличии от предыдущего нашего примера, дайджестеры не закрывают свои исходящие каналы, когда несколько гоурутин производят отправку в общий канал. Вместо этого, код в функции `MD5All` обеспечивает закрытие канала, когда все дайджестеры завершены:
 
 {% highlight go %}
     // Start a fixed number of goroutines to read and digest files.
@@ -543,9 +545,9 @@ Unlike our previous examples, digester does not close its output channel, as mul
     }()
 {% endhighlight %}
 
-We could instead have each digester create and return its own output channel, but then we would need additional goroutines to fan-in the results.
+Вместо этого каждый дайджестер мог бы создавать и возвращать свой собственный исходящий канал, но тогда нам бы понадобтлись дополнительные гоурутины для сведения результатов.
 
-The final stage receives all the results from c then checks the error from errc. This check cannot happen any earlier, since before this point, walkFiles may block sending values downstream:
+Финальная стадия принимает все результаты из `c`, затем проверяет ошибку из `errc`. Эта проверка не может происходить раньше, поскольку до этого момента `walkFiles` может блокировать отправку значений вниз: 
 
 {% highlight go %}
     m := make(map[string][md5.Size]byte)
@@ -563,14 +565,14 @@ The final stage receives all the results from c then checks the error from errc.
 }
 {% endhighlight %}
 
-# Conclusion #
+# Заключение #
 
-This article has presented techniques for constructing streaming data pipelines in Go. Dealing with failures in such pipelines is tricky, since each stage in the pipeline may block attempting to send values downstream, and the downstream stages may no longer care about the incoming data. We showed how closing a channel can broadcast a "done" signal to all the goroutines started by a pipeline and defined guidelines for constructing pipelines correctly.
+Этот пост показывает техники для создания потоковых конвейеров данных в Go. Работа с отказами в таких конвейерах является необычной, поскольку каждая стадия в конвейере может блокировать попытки постать значения вниз и нижестоящие сталии могут перестать принимать входящие данные. Мы показали как закрытие канала может посылать широковещательный сигнал "done", чтобы все гоурутины работали как конвейер и определили правила для построения правильных конвейеров.
 
-Further reading:
+Дальнейшее чтение:
 
-Go Concurrency Patterns (video) presents the basics of Go's concurrency primitives and several ways to apply them.
-Advanced Go Concurrency Patterns (video) covers more complex uses of Go's primitives, especially select.
-Douglas McIlroy's paper Squinting at Power Series shows how Go-like concurrency provides elegant support for complex calculations.
+* [Паттерны многопоточности в Go](http://talks.golang.org/2012/concurrency.slide#1) ([видео](https://www.youtube.com/watch?v=f6kdp27TYZs)) показывает основы примитивов многопоточности в Go  несколько способов их применения.
+* [Продвинутые паттерны параллелизма в Go](http://blog.golang.org/advanced-go-concurrency-patterns) ([видео](http://www.youtube.com/watch?v=QDDwwePbDtw)) раскрывает более сложные использвания примитивов Go, в особенности `select`.
+* Статья Дугласа Макилроя, [Squinting at Power Series](http://swtch.com/~rsc/thread/squint.pdf), показывает, как параллелизм в стиле Go предоставляет изящную поддержку для сложных вычислений.
 
 **Оригинал:** [http://blog.golang.org/pipelines](http://blog.golang.org/pipelines)
