@@ -14,3 +14,4 @@ highlighter: rouge
 paginate: 10
 exclude: [_excluded, start_server.bat, tmpls_go, config_go.json, new_post.exe]
 gems: [jekyll-paginate]
+theme: jekyll-theme-cayman
