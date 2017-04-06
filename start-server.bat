@@ -1,2 +1,1 @@
-start http-server _site/
-start jekyll build --watch
+start jekyll serve --watch

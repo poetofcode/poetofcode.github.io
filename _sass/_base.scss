@@ -17,7 +17,7 @@ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
-    font-weight: 300;
+    font-weight: $base-font-weight;
     color: $text-color;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
@@ -30,13 +30,16 @@ html, body {
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-h1, h2, h3, h4, h5, h6,
+h1, h2, h3, h4, h5, h6 {
+    margin-top: $spacing-unit * 1.5;
+    margin-bottom: $spacing-unit;
+}
+
 p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
     margin-bottom: $spacing-unit / 2;
 }
-
 
 /**
  * Images
@@ -128,10 +131,12 @@ blockquote {
  */
 pre,
 code {
-    font-size: 18px;
+    font-size: 16px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
     background-color: #eef;
+    font-family: "RobotoMono";
+    line-height: 26px;
 }
 
 code {

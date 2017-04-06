@@ -2,7 +2,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="{{ site.baseurl }}/"><i class="fa fa-home"></i>&nbsp;{% if page.url == "/index.html" %}{{ site.title }}{% else %}На главную{% endif %}</a>
+    <a class="site-title" href="{{ site.baseurl }}/">{% if page.url == "/" %}<i class="fa fa-code"></i>{% else %}<i class="fa fa-long-arrow-left"></i>{% endif %}&nbsp;{{ site.title }}</a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
