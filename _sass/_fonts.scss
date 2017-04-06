@@ -25,6 +25,13 @@ $base_fonts_url: '/fonts';
 
 @font-face {
     font-family: 'Roboto';
+    src: local('Roboto Medium'), url('#{$base_fonts_url}/roboto/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
     src: local('Roboto Bold'), url('#{$base_fonts_url}/roboto/Roboto-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
