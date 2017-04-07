@@ -23,5 +23,15 @@
     </nav>
 
   </div>
-
 </header>
+
+{% if page.url == "/" %}
+  <div class="intro">
+    <div class="wrapper">
+      <p class="text first">Добро пожаловать на мой блог!</p>
+      <br />
+      <p class="text second">Тут я пишу немного о программировании и жизни. <span style="white-space: nowrap;">Приятного чтения <i class="fa fa-smile-o"></i></span></p>
+    </div>
+  </div>
+{% endif %}
+
