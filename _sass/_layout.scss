@@ -2,7 +2,7 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
+    /* border-top: 5px solid $grey-color-dark; */
     border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
@@ -94,6 +94,10 @@
 .site-footer {
     border-top: 1px solid $grey-color-light;
     padding: $spacing-unit 0;
+
+    a {
+        font-weight: 400;
+    }    
 }
 
 .footer-heading {
@@ -190,6 +194,7 @@
 .post-link {
     display: block;
     font-size: 36px;
+    font-weight: 400;
 }
 
 .comments-count {
@@ -202,6 +207,10 @@
  */
 .post-header {
     margin-bottom: $spacing-unit;
+
+    h1 {
+        font-weight: bold;
+    }
 }
 
 .post-title {
@@ -239,6 +248,10 @@
         @include media-query($on-laptop) {
             font-size: 18px;
         }
+    }
+
+    a {
+        font-weight: 400;
     }
 }
 

@@ -84,7 +84,8 @@ li {
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
+    font-weight: 400;
+    color: #546E7A;
 }
 
 
@@ -96,12 +97,13 @@ a {
     color: $brand-color;
     text-decoration: none;
 
-    &:visited {
+/*    &:visited {
         color: darken($brand-color, 15%);
     }
+*/
 
     &:hover {
-        color: $text-color;
+        /* color: $text-color; */
         text-decoration: underline;
     }
 }
@@ -134,7 +136,8 @@ code {
     font-size: 16px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    /* background-color: #eef; */
+    background-color: #f0f5f1;
     font-family: "RobotoMono";
     line-height: 26px;
     font-weight: 400;
