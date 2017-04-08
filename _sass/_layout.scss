@@ -357,6 +357,8 @@
     background-position: center center;
     margin-bottom: 40px;
     overflow: hidden;
+    background-color: #eff8ff;
+    border-bottom: 1px solid #e8e8e8;
 
     .text {
         box-sizing: border-box;
@@ -366,13 +368,24 @@
         padding: 0 15px;
         font-size: 18px;
         font-weight: 400;
+        margin: 0;
     }
 
     .text.first {
         margin-top: 50px;
+        margin-bottom: 15px;
+
+        @include media-query($on-palm) {
+            margin-top: 40px;
+            margin-bottom: 0;
+        }            
     }
 
     .text.second {
         margin-left: 50px;
+
+        @include media-query($on-palm) {
+            margin-left: 0;
+        }            
     }
 }

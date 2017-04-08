@@ -23,7 +23,7 @@
         $(function() {
           function generateCanvas() {    
             var pattern = Trianglify({
-                width: 1600,
+                width: screen.width > 200 ? screen.width : 1600,
                 height: 200
             });
 
