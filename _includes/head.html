@@ -17,21 +17,18 @@
 
   <!-- Scripts -->
   <script src="/assets/libs/jquery-2.1.4.min.js"></script>
+
   {% if paginator %}
-  <script type="text/javascript">"/assets/libs/trianglify.min.js"</script>
+  <script src="/assets/libs/trianglify.min.js"></script>
   <script>
     $(function() {
       function generateCanvas() {
-        var prettyColors = ['YlGnBu', 'Spectral', 'GnBu', 'PRGn', 'PuOr', 'Blues'];    
-
-        var rndColor = pickRandom(prettyColors);
-
-        console.log('random color -', rndColor);
+        var prettyColors = ['Spectral', 'YlGnBu', 'GnBu', 'PRGn', 'PuOr', 'Blues'];    
 
         var pattern = Trianglify({
           width: screen.width > 200 ? screen.width : 1600,
           height: 200,
-          x_colors: rndColor,
+          x_colors: prettyColors[0],
           y_colors: 'match_x'
         });
 
@@ -45,9 +42,7 @@
 
 
       function pickRandom(arr) {
-        console.log(arr);
         var idx = getRandomArbitrary(0, arr.length-1);
-        console.log('random index - ', idx);
         return arr[idx];
       }
 
@@ -55,9 +50,9 @@
         return Math.round(Math.random() * (max - min) + min);
       }
 
-          // First time generation
-          updateCanvas();
-        });
-      </script>
-      {% endif %}    
-    </head>
+      // First time generation
+      updateCanvas();
+    });
+  </script>
+  {% endif %}    
+</head>
