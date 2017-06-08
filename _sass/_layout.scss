@@ -93,8 +93,7 @@
  */
 .site-footer {
     border-top: 1px solid $grey-color-light;
-    padding: $spacing-unit 0;
-    background-color: #eff8ff;
+    background-color: #f1f4ff;
 
     a {
         font-weight: 400;
@@ -177,9 +176,10 @@
 .post-list {
     margin-left: 0;
     list-style: none;
+    margin-top: $spacing-unit;
 
     > li {
-        margin-bottom: $spacing-unit*2.5;
+        margin-bottom: $spacing-unit*3;
     }
 
     h2 {
@@ -188,7 +188,6 @@
 }
 
 .post-meta {
-    font-size: $small-font-size;
     color: $grey-color;
 }
 
@@ -196,9 +195,8 @@
     display: block;
     font-size: 36px;
     font-weight: 400;
-/*
-    color: #4DB6AC;
-*/
+    line-height: 30px;
+    color: #546E7A;
 }
 
 .comments-count {
@@ -366,7 +364,7 @@
         color: #333;
         display: inline-block;
         padding: 0 15px;
-        font-size: 18px;
+        font-size: $base-font-size;
         font-weight: 400;
         margin: 0;
     }
