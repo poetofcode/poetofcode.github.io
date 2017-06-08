@@ -10,34 +10,54 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
-	<link href="/images/blog_icon.png" rel="icon">
+  <link href="/images/blog_icon.png" rel="icon">
 
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/fonts/Font-Awesome-master/css/font-awesome.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/fonts/Font-Awesome-master/css/font-awesome.min.css">
 
-    <!-- Scripts -->
-    <script src="/assets/libs/jquery-2.1.4.min.js"></script>
-    {% if paginator %}
-      <script type="text/javascript">"/assets/libs/trianglify.min.js"</script>
-      <script>
-        $(function() {
-          function generateCanvas() {    
-            var pattern = Trianglify({
-                width: screen.width > 200 ? screen.width : 1600,
-                height: 200
-            });
+  <!-- Scripts -->
+  <script src="/assets/libs/jquery-2.1.4.min.js"></script>
+  {% if paginator %}
+  <script type="text/javascript">"/assets/libs/trianglify.min.js"</script>
+  <script>
+    $(function() {
+      function generateCanvas() {
+        var prettyColors = ['YlGnBu', 'Spectral', 'GnBu', 'PRGn', 'PuOr', 'Blues'];    
 
-            return pattern.png();
-          }
+        var rndColor = pickRandom(prettyColors);
 
-          function updateCanvas() {
-            var png = generateCanvas();
-            $('.intro').css('background-image', 'url({png})'.replace('{png}', png));
-          }
+        console.log('random color -', rndColor);
+
+        var pattern = Trianglify({
+          width: screen.width > 200 ? screen.width : 1600,
+          height: 200,
+          x_colors: rndColor,
+          y_colors: 'match_x'
+        });
+
+        return pattern.png();
+      }
+
+      function updateCanvas() {
+        var png = generateCanvas();
+        $('.intro').css('background-image', 'url({png})'.replace('{png}', png));
+      }
+
+
+      function pickRandom(arr) {
+        console.log(arr);
+        var idx = getRandomArbitrary(0, arr.length-1);
+        console.log('random index - ', idx);
+        return arr[idx];
+      }
+
+      function getRandomArbitrary(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+      }
 
           // First time generation
           updateCanvas();
         });
       </script>
-    {% endif %}    
-</head>
+      {% endif %}    
+    </head>
