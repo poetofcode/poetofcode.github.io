@@ -1,10 +1,10 @@
 /**
  * Site header
  */
-.site-header {
+ .site-header {
     /* border-top: 5px solid $grey-color-dark; */
     border-bottom: 1px solid $grey-color-light;
-    min-height: 56px;
+    min-height: $header-height;
 
     // Positioning context for the mobile navigation icon
     position: relative;
@@ -12,7 +12,7 @@
 
 .site-title {
     font-size: 26px;
-    line-height: 56px;
+    line-height: $header-height;
     letter-spacing: -1px;
     margin-bottom: 0;
     float: left;
@@ -25,7 +25,7 @@
 
 .site-nav {
     float: right;
-    line-height: 56px;
+    line-height: $header-height;
 
     .menu-icon {
         display: none;
@@ -91,7 +91,7 @@
 /**
  * Site footer
  */
-.site-footer {
+ .site-footer {
     border-top: 1px solid $grey-color-light;
     background-color: #f1f4ff;
 
@@ -165,7 +165,7 @@
 /**
  * Page content
  */
-.page-content {
+ .page-content {
     padding: $spacing-unit 0;
 }
 
@@ -207,7 +207,7 @@
 /**
  * Posts
  */
-.post-header {
+ .post-header {
     margin-bottom: $spacing-unit;
 
     h1 {
@@ -255,6 +255,48 @@
     a {
         font-weight: 400;
     }
+}
+
+/* Post header image */
+
+.header-image {
+    width: 100%;
+    height: $header-image-height;
+    overflow: hidden;
+    position: absolute;
+    left: 0px;
+    right: 100%;
+    top: $header-height;
+    z-index: -10;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}
+
+.header-image .overlay {
+    width: 100%;
+    height: $header-image-height;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+}
+
+.post.with-image .post-header {
+    position: absolute;
+    top: $header-image-height/2-30px;
+    color: #fff;
+
+    .post-title {
+        color: inherit;
+    }
+
+    .post-meta {
+        color: inherit;
+    }
+}
+
+.post.with-image .post-content {
+    margin-top: $header-image-height+20px;
 }
 
 
