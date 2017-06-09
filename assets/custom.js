@@ -42,6 +42,18 @@ $(function() {
 		return Math.round(Math.random() * (max - min) + min);
 	}
 
+	// Source: https://stackoverflow.com/questions/487073/check-if-element-is-visible-after-scrolling
+	function isScrolledIntoView(elem)
+	{
+	    var docViewTop = $(window).scrollTop();
+	    var docViewBottom = docViewTop + $(window).height();
+
+	    var elemTop = $(elem).offset().top;
+	    var elemBottom = elemTop + $(elem).height();
+
+	    return ((elemBottom <= docViewBottom) && (elemBottom >= docViewTop));
+	}
+
 
 	//
 	// HANDLERS
@@ -53,7 +65,7 @@ $(function() {
 		easing: 'linear',
 		duration: 500,
 		complete: function() {
-			updateRndCanvas();			
+			updateRndCanvas();	
 		},
 		autoplay: false
 	});
@@ -62,11 +74,23 @@ $(function() {
 		fabAnim.restart();
 	});
 
+	$(document).scroll(function() {
+		if(isScrolledIntoView('.intro')) {
+			$('.fab').addClass('visible');
+			return;
+		}
+
+		$('.fab').removeClass('visible');	
+	});
 
 	//
 	// Main running part
 	//
 
 	initCanvas();
+
+	if(isScrolledIntoView('.intro')) {
+		$('.fab').addClass('visible');
+	}
 
 });

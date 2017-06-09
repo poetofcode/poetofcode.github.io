@@ -347,13 +347,17 @@
 .fab {
     position: fixed;
     right: 10%;
-    bottom: 10%;
+    bottom: -$fab-size;
 
     width: $fab-size;
     height: $fab-size;
     background-color: $brand-color;
     border-radius: 100%;
     cursor: pointer;
+
+    -webkit-transition: bottom $fab-vis-duration ease;
+    -ms-transition: bottom $fab-vis-duration ease;
+    transition: bottom $fab-vis-duration ease;
 
     -webkit-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
     -moz-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
@@ -365,6 +369,10 @@
         -webkit-box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
         -moz-box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
         box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
+    }
+
+    &.visible {
+        bottom: 10%;
     }
 }
 
