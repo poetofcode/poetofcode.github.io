@@ -16,8 +16,17 @@
     {% include footer.html %}
 
     
+    <div class="fab"></div>
+
     <!-- Scripts -->
     <script id="dsq-count-scr" src="//poetofcoderu.disqus.com/count.js" async></script>
+    <script src="/assets/libs/jquery-2.1.4.min.js"></script>
+
+    {% if paginator %}
+    <script src="/assets/libs/trianglify.min.js"></script>
+    {% endif %}    
+
+    <script src="/assets/custom.js" type="text/javascript"></script>
 
   </body>
 

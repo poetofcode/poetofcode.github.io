@@ -342,6 +342,42 @@
 }
 
 
+/* Floating action button: FAB */
+
+$fab-size: 50px;
+$fab-shadow-offset: 3px;
+$fab-shadow-offset-active: $fab-shadow-offset/2;
+$fab-shadow-opacity: 0.25;
+
+.fab {
+    position: fixed;
+    right: 10%;
+    bottom: 10%;
+
+    width: $fab-size;
+    height: $fab-size;
+    background-color: $brand-color;
+    border-radius: 100%;
+    cursor: pointer;
+
+    background-image: url(/images/icon_reload.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    -webkit-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
+    -moz-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
+    box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
+
+    &:active {
+        background-color: lighten($brand-color, 10%);
+
+        -webkit-box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
+        -moz-box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
+        box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
+    }
+}
+
+
 /* Pagination */
 
 .pagination {
