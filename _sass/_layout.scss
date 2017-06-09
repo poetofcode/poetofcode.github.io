@@ -344,11 +344,6 @@
 
 /* Floating action button: FAB */
 
-$fab-size: 50px;
-$fab-shadow-offset: 3px;
-$fab-shadow-offset-active: $fab-shadow-offset/2;
-$fab-shadow-opacity: 0.25;
-
 .fab {
     position: fixed;
     right: 10%;
@@ -453,6 +448,10 @@ $fab-shadow-opacity: 0.25;
     overflow: hidden;
     background-color: #eff8ff;
     border-bottom: 1px solid #e8e8e8;
+
+    -webkit-transition: background-image $intro-transition-duration linear;
+    -ms-transition: background-image $intro-transition-duration linear;
+    transition: background-image $intro-transition-duration linear;
 
     .text {
         box-sizing: border-box;
