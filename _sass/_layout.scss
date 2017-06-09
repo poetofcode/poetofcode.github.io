@@ -257,6 +257,24 @@
     }
 }
 
+/* Post images on index page */
+
+.post-image {
+    width: 30%;
+    max-height: 500px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+
+    float: left;
+
+    @include media-query($on-palm) {
+        float: none;
+        margin: 0;
+        width: 100%;
+    }
+}
+
+
 /* Post header image */
 
 .header-image {
