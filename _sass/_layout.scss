@@ -355,10 +355,6 @@
     border-radius: 100%;
     cursor: pointer;
 
-    background-image: url(/images/icon_reload.svg);
-    background-repeat: no-repeat;
-    background-position: center center;
-
     -webkit-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
     -moz-box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
     box-shadow: $fab-shadow-offset $fab-shadow-offset $fab-shadow-offset 0px rgba(0,0,0, $fab-shadow-opacity);
@@ -370,6 +366,19 @@
         -moz-box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
         box-shadow: $fab-shadow-offset-active $fab-shadow-offset-active $fab-shadow-offset-active 0px rgba(0,0,0, $fab-shadow-opacity);
     }
+}
+
+.fab .icon {
+    display: block;
+    width: $fab-icon-size;
+    height: $fab-icon-size;
+    background-image: url(/images/icon_reload.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: (100%-$fab-icon-size)/2;
 }
 
 

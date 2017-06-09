@@ -16,11 +16,13 @@
     {% include footer.html %}
 
     
-    <div class="fab"></div>
+    <div class="fab">
+      <span class="icon"></span>
+    </div>
 
     <!-- Scripts -->
-    <script id="dsq-count-scr" src="//poetofcoderu.disqus.com/count.js" async></script>
     <script src="/assets/libs/jquery-2.1.4.min.js"></script>
+    <script src="/assets/libs/anime.min.js" type="text/javascript"></script>
 
     {% if paginator %}
     <script src="/assets/libs/trianglify.min.js"></script>
@@ -28,6 +30,9 @@
 
     <script src="/assets/custom.js" type="text/javascript"></script>
 
+    {% if paginator == nil %}
+    <script id="dsq-count-scr" src="//poetofcoderu.disqus.com/count.js" async></script>
+    {% endif %}    
   </body>
 
 </html>

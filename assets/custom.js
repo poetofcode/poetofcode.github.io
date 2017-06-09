@@ -1,4 +1,9 @@
 $(function() {
+
+	//
+	// DEFINITIONS
+	//
+
 	var prettyColors = ['Spectral', 'YlGnBu', 'GnBu', 'PRGn', 'PuOr', 'Blues'];    
 
 	function generateCanvas(color) {
@@ -37,12 +42,31 @@ $(function() {
 		return Math.round(Math.random() * (max - min) + min);
 	}
 
-	// First time generation
-	initCanvas();
+
+	//
+	// HANDLERS
+	//
+
+	var fabAnim = anime({
+		targets: '.fab .icon',
+		rotate: '-180deg',
+		easing: 'linear',
+		duration: 500,
+		complete: function() {
+			updateRndCanvas();			
+		},
+		autoplay: false
+	});
 
 	$('.fab').click(function() {
-		// alert("Сработало!");
-		updateRndCanvas();
+		fabAnim.restart();
 	});
+
+
+	//
+	// Main running part
+	//
+
+	initCanvas();
 
 });
