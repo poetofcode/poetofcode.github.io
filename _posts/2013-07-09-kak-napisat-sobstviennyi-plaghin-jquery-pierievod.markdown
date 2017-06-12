@@ -4,6 +4,7 @@ title: "Как написать собственный плагин jQuery [пе
 date: 2013-07-09 23:57:17 +0400
 comments: true
 categories: 
+tags: javascript jquery programming
 ---
 
 <p>

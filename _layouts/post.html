@@ -36,6 +36,12 @@ layout: default
 			{{ content }}
 		</article>
 
+		<ul class="tag_list">
+			{% for tag in page.tags %}
+			<li class="inline archive_list"><a class="tag_list_link" href="/tag/#{{tag}}"><i class="fa fa-tag"></i>&nbsp;{{tag}}</a></li>
+			{% endfor %}
+		</ul>
+
 		<div class="PageNavigation">
 			<h1>Читайте также</h1>
 			{% if page.previous.url %}

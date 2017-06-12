@@ -43,6 +43,12 @@ layout: default
             {{ post.excerpt | strip_html }}
           </div>
 
+          <ul class="tag_list">
+            {% for tag in post.tags %}
+            <li class="inline archive_list"><a class="tag_list_link" href="/tag/#{{tag}}"><i class="fa fa-tag"></i>&nbsp;{{tag}}</a></li>
+            {% endfor %}
+          </ul>
+
         </div>
       </li>
       {% endfor %}

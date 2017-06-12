@@ -4,6 +4,7 @@ title: "Зачем открывать чёртов редактор"
 date: 2015-03-15 13:02:30 +0400
 comments: true
 categories: ["мотивация", "Джоэл Спольски"]
+tags: мотивация
 ---
 
 <p style="color: #333; font-style: italic">

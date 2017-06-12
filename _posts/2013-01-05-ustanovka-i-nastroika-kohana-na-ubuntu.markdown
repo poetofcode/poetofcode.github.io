@@ -4,6 +4,7 @@ title: "Установка и настройка Kohana на Ubuntu"
 date: 2013-01-05 21:28:10 +0400
 comments: true
 categories: [kohana, apache, ubuntu, framework]
+tags: php kohana programming
 ---
 
 Я уже какое-то время знаком с отличным фрэймворком для PHP - Kohana. В этом посте рассмотрим, как настроить фрэймворк на машине с установленной Ubuntu с нуля и заставить его работать в связке с Apache-сервером.

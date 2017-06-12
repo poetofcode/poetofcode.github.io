@@ -4,6 +4,7 @@ title: "Обзор бюджетного смартфона Highscreen Spark"
 date: 2013-01-10 23:09:58 +0400
 comments: true
 categories: [android, highscreen, spark]
+tags: android обзор
 ---
 
 Несколько последних месяцев я присматривался к недорогим моделям 

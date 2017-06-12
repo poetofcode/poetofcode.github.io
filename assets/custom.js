@@ -5,8 +5,9 @@ $(function() {
 	//
 
 	var prettyColors = ['Spectral', 'PuOr', 'PRGn', 'GnBu', 'YlOrBr'];    
-	var fabColors = ['#1976D2', '#8079B7', '#53A45B', '#3897c4', '#F79D37'];
+	var fabColors = ['#1976D2', '#8079B7', '#32c36e', '#3897c4', '#F79D37'];
 	var fabAnimDuration = 700;
+	
 	var currColorIdx = 0;
 
 	var fabIconAnim = anime({
@@ -30,9 +31,16 @@ $(function() {
 		return pattern.png();
 	}
 
-	function initCanvas() {
-		var png = generateCanvas(prettyColors[0]);
+	function initCanvasAndFab() {
+		var idx = getCookie('pcb_color_index');
+		if (typeof idx != 'undefined' && idx >= 0 && idx < fabColors.length) {
+			currColorIdx = idx;
+		}
+
+		var png = generateCanvas(prettyColors[currColorIdx]);
 		replaceCanvas(png);
+
+		$('.fab').css('background-color', fabColors[currColorIdx]);
 	}
 
 	function updateRndCanvas() {
@@ -65,6 +73,42 @@ $(function() {
 		return ((elemBottom <= docViewBottom) && (elemBottom >= docViewTop));
 	}
 
+	// https://learn.javascript.ru/cookie
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+			));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+
+	function setCookie(name, value, options) {
+		options = options || {};
+
+		var expires = options.expires;
+
+		if (typeof expires == "number" && expires) {
+			var d = new Date();
+			d.setTime(d.getTime() + expires * 1000);
+			expires = options.expires = d;
+		}
+		if (expires && expires.toUTCString) {
+			options.expires = expires.toUTCString();
+		}
+
+		value = encodeURIComponent(value);
+
+		var updatedCookie = name + "=" + value;
+
+		for (var propName in options) {
+			updatedCookie += "; " + propName;
+			var propValue = options[propName];
+			if (propValue !== true) {
+				updatedCookie += "=" + propValue;
+			}
+		}
+
+		document.cookie = updatedCookie;
+	}
 
 	//
 	// HANDLERS
@@ -88,6 +132,7 @@ $(function() {
 			complete: function() {
 				var png = generateCanvas(prettyColors[currColorIdx]);
 				replaceCanvas(png);
+				setCookie('pcb_color_index', currColorIdx);
 			}
 		});
 
@@ -107,7 +152,7 @@ $(function() {
 	// Main running part
 	//
 
-	initCanvas();
+	initCanvasAndFab();
 
 	if(isScrolledIntoView('.intro')) {
 		$('.fab').addClass('visible');
