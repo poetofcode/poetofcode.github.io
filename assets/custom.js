@@ -4,8 +4,8 @@ $(function() {
 	// DEFINITIONS
 	//
 
-	var prettyColors = ['Spectral', 'PRGn', 'PuOr', 'GnBu', 'YlOrBr'];    
-	var fabColors = ['#1976D2', '#53A45B', '#8079B7', '#3897c4', '#F79D37'];
+	var prettyColors = ['Spectral', 'PuOr', 'PRGn', 'GnBu', 'YlOrBr'];    
+	var fabColors = ['#1976D2', '#8079B7', '#53A45B', '#3897c4', '#F79D37'];
 	var fabAnimDuration = 700;
 	var currColorIdx = 0;
 
