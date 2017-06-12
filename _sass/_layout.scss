@@ -373,7 +373,15 @@
 
     &.visible {
         bottom: 10%;
+    
+        @include media-query($on-palm) {
+            bottom: $fab-size/2;
+        }            
     }
+
+    @include media-query($on-palm) {
+        right: $fab-size/2;
+    }            
 }
 
 .fab .icon {
