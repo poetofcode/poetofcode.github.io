@@ -4,7 +4,18 @@ $(function() {
 	// DEFINITIONS
 	//
 
-	var prettyColors = ['Spectral', 'YlGnBu', 'GnBu', 'PRGn', 'PuOr', 'Blues'];    
+	var prettyColors = ['Spectral', 'PRGn', 'PuOr', 'GnBu', 'YlOrBr'];    
+	var fabColors = ['#1976D2', '#53A45B', '#8079B7', '#3897c4', '#F79D37'];
+	var fabAnimDuration = 700;
+	var currColorIdx = 0;
+
+	var fabIconAnim = anime({
+		targets: '.fab .icon',
+		rotate: '360deg',
+		easing: 'linear',
+		duration: fabAnimDuration,
+		autoplay: false
+	});
 
 	function generateCanvas(color) {
 		if(typeof Trianglify == 'undefined') return;
@@ -45,13 +56,13 @@ $(function() {
 	// Source: https://stackoverflow.com/questions/487073/check-if-element-is-visible-after-scrolling
 	function isScrolledIntoView(elem)
 	{
-	    var docViewTop = $(window).scrollTop();
-	    var docViewBottom = docViewTop + $(window).height();
+		var docViewTop = $(window).scrollTop();
+		var docViewBottom = docViewTop + $(window).height();
 
-	    var elemTop = $(elem).offset().top;
-	    var elemBottom = elemTop + $(elem).height();
+		var elemTop = $(elem).offset().top;
+		var elemBottom = elemTop + $(elem).height();
 
-	    return ((elemBottom <= docViewBottom) && (elemBottom >= docViewTop));
+		return ((elemBottom <= docViewBottom) && (elemBottom >= docViewTop));
 	}
 
 
@@ -59,19 +70,28 @@ $(function() {
 	// HANDLERS
 	//
 
-	var fabAnim = anime({
-		targets: '.fab .icon',
-		rotate: '-180deg',
-		easing: 'linear',
-		duration: 500,
-		complete: function() {
-			updateRndCanvas();	
-		},
-		autoplay: false
-	});
-
 	$('.fab').click(function() {
-		fabAnim.restart();
+		currColorIdx++;
+		if(currColorIdx > fabColors.length-1) {
+			currColorIdx = 0;
+		}
+
+		var fabButtonAnim = anime({
+			targets: '.fab',
+			easing: 'linear',
+			duration: fabAnimDuration,
+			autoplay: false,
+			backgroundColor: fabColors[currColorIdx],
+			begin: function() {
+				fabIconAnim.restart();
+			},
+			complete: function() {
+				var png = generateCanvas(prettyColors[currColorIdx]);
+				replaceCanvas(png);
+			}
+		});
+
+		fabButtonAnim.restart();
 	});
 
 	$(document).scroll(function() {
