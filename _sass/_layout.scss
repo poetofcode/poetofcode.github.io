@@ -520,26 +520,39 @@
 }
 
 /* Tags */
-.tag_list {
+.tag-list {
     margin-top: 10px;
     margin-left: 0;
 
     li {
         margin-right: 5px;
-
-        a {
-            background-color: #f1f4ff;
-            padding: 3px 5px;
-            border-radius: 5px;
-            text-decoration: none;
-
-            -webkit-transition: background-color 0.2s ease;
-            -ms-transition: background-color 0.2s ease;
-            transition: background-color 0.2s ease;
-
-            &:hover {
-                background-color: darken(#f1f4ff, 10%);
-            }
-        }
     }
+}
+
+.tag {
+    background-color: #f1f4ff;
+    padding: 0px 7px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: $base-font-weight;
+    font-size: $small-font-size;
+
+    -webkit-transition: background-color 0.2s ease;
+    -ms-transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: darken(#f1f4ff, 10%);
+        text-decoration: none;
+    }
+
+    i {
+        display: inline;
+    }
+}
+
+.posts-by-tag {
+  list-style-type: none;    
 }
