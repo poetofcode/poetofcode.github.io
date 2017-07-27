@@ -16,7 +16,7 @@ layout: default
       </div>
       {% endif %}
 
-      <div class="post-text {% if post.image %} with-image{% endif %}">
+      <div class="post-text {% if post.image %} with-image{% endif %} clearfix">
         <span class="post-meta">{% assign m = post.date | date: "%-m" %}
           {{ post.date | date: "%-d" }}
           {% case m %}
@@ -49,6 +49,7 @@ layout: default
             {% endfor %}
           </ul>
 
+          <a class="read-more" href="{{ post.url | prepend: site.baseurl }}">Читать далее <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
         </div>
       </li>
       {% endfor %}
