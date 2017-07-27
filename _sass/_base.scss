@@ -1,9 +1,9 @@
 /**
  * Reset some basic elements
  */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
+ body, h1, h2, h3, h4, h5, h6,
+ p, blockquote, pre, hr,
+ dl, dd, ol, ul, figure {
     margin: 0;
     padding: 0;
 }
@@ -13,7 +13,7 @@ dl, dd, ol, ul, figure {
 /**
  * Basic styling
  */
-body {
+ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
@@ -30,7 +30,7 @@ html, body {
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-h1, h2, h3, h4, h5, h6 {
+ h1, h2, h3, h4, h5, h6 {
     margin-top: $spacing-unit * 1.5;
     margin-bottom: $spacing-unit;
 }
@@ -44,7 +44,7 @@ ul, ol, dl, figure,
 /**
  * Images
  */
-img {
+ img {
     max-width: 100%;
     vertical-align: middle;
 }
@@ -54,7 +54,7 @@ img {
 /**
  * Figures
  */
-figure > img {
+ figure > img {
     display: block;
 }
 
@@ -67,15 +67,15 @@ figcaption {
 /**
  * Lists
  */
-ul, ol {
+ ul, ol {
     margin-left: $spacing-unit;
 }
 
 li {
     > ul,
     > ol {
-         margin-bottom: 0;
-    }
+       margin-bottom: 0;
+   }
 }
 
 
@@ -83,7 +83,7 @@ li {
 /**
  * Headings
  */
-h1, h2, h3, h4, h5, h6 {
+ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     color: $header-color;
 }
@@ -93,14 +93,14 @@ h1, h2, h3, h4, h5, h6 {
 /**
  * Links
  */
-a {
+ a {
     color: $brand-color;
     text-decoration: none;
 
 /*    &:visited {
         color: darken($brand-color, 15%);
     }
-*/
+    */
 
     &:hover {
         /* color: $text-color; */
@@ -113,7 +113,7 @@ a {
 /**
  * Blockquotes
  */
-blockquote {
+ blockquote {
     color: $grey-color;
     border-left: 4px solid $grey-color-light;
     padding-left: $spacing-unit / 2;
@@ -131,8 +131,8 @@ blockquote {
 /**
  * Code formatting
  */
-pre,
-code {
+ pre,
+ code {
     font-size: $code-font-size;
     border: 1px solid $grey-color-light;
     border-radius: 5px;
@@ -162,7 +162,7 @@ pre {
 /**
  * Wrapper
  */
-.wrapper {
+ .wrapper {
     max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
     max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
     margin-right: auto;
@@ -182,7 +182,7 @@ pre {
 /**
  * Clearfix
  */
-%clearfix {
+ %clearfix {
 
     &:after {
         content: "";
@@ -191,12 +191,25 @@ pre {
     }
 }
 
-
+/* Source: https://css-tricks.com/snippets/css/clear-fix/; */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
 
 /**
  * Icons
  */
-.icon {
+ .icon {
 
     > svg {
         display: inline-block;

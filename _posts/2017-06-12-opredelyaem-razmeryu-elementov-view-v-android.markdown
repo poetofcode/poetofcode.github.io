@@ -3,8 +3,8 @@ layout: post
 title: "Определяем размеры элементов View в Android"
 date: 2017-06-12 16:00:00 +0300
 comments: true
-category: coding
-tags: android programming
+category: programming
+tags: android-dev programming
 image: android_sizes.png
 ---
 
