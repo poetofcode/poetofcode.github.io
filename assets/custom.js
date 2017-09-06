@@ -114,48 +114,49 @@ $(function() {
 	// HANDLERS
 	//
 
-	$('.fab').click(function() {
-		currColorIdx++;
-		if(currColorIdx > fabColors.length-1) {
-			currColorIdx = 0;
-		}
+	// $('.fab').click(function() {
+	// 	currColorIdx++;
+	// 	if(currColorIdx > fabColors.length-1) {
+	// 		currColorIdx = 0;
+	// 	}
 
-		var fabButtonAnim = anime({
-			targets: '.fab',
-			easing: 'linear',
-			duration: fabAnimDuration,
-			autoplay: false,
-			backgroundColor: fabColors[currColorIdx],
-			begin: function() {
-				fabIconAnim.restart();
-			},
-			complete: function() {
-				var png = generateCanvas(prettyColors[currColorIdx]);
-				replaceCanvas(png);
-				setCookie('pcb_color_index', currColorIdx);
-			}
-		});
+	// 	var fabButtonAnim = anime({
+	// 		targets: '.fab',
+	// 		easing: 'linear',
+	// 		duration: fabAnimDuration,
+	// 		autoplay: false,
+	// 		backgroundColor: fabColors[currColorIdx],
+	// 		begin: function() {
+	// 			fabIconAnim.restart();
+	// 		},
+	// 		complete: function() {
+	// 			var png = generateCanvas(prettyColors[currColorIdx]);
+	// 			replaceCanvas(png);
+	// 			setCookie('pcb_color_index', currColorIdx);
+	// 		}
+	// 	});
 
-		fabButtonAnim.restart();
-	});
+	// 	fabButtonAnim.restart();
+	// });
 
-	$(document).scroll(function() {
-		if(isScrolledIntoView('.intro')) {
-			$('.fab').addClass('visible');
-			return;
-		}
+	// $(document).scroll(function() {
+	// 	if(isScrolledIntoView('.intro')) {
+	// 		$('.fab').addClass('visible');
+	// 		return;
+	// 	}
 
-		$('.fab').removeClass('visible');	
-	});
+	// 	$('.fab').removeClass('visible');	
+	// });
 
 	//
 	// Main running part
 	//
 
-	initCanvasAndFab();
+	// initCanvasAndFab();
 
-	if(isScrolledIntoView('.intro')) {
-		$('.fab').addClass('visible');
-	}
+	// if(isScrolledIntoView('.intro')) {
+	// 	$('.fab').addClass('visible');
+	// }
 
+	replaceCanvas(generateCanvas(prettyColors[0]));
 });

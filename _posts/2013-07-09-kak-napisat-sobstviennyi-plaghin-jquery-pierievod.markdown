@@ -29,7 +29,7 @@ tags: javascript jquery programming
 		<b id="internal-source-marker_0.7454807010944933" style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-weight: normal;"><span style="background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">Предотвращение конфликтов имен</span></b></li>
 </ul>
 
-<!-- more -->
+<!--more-->
 
 <p>
 	<br />

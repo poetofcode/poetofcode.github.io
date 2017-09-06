@@ -15,8 +15,6 @@ Permission denied (publickey).
 fatal: The remote end hung up unexpectedly
 </pre>
 
-<!-- more -->
-
 <p>
 	При этом все ключи были, как и положено, сгенерированы и добавлены в heroku, соответственно, командами:</p>
 
@@ -24,6 +22,8 @@ fatal: The remote end hung up unexpectedly
 $ ssh-keygen -t rsa -C "poetinthecode@gmail.com"
 $ heroku keys:add
 </pre>
+
+<!--more-->
 
 <p>
 	В итоге решение было найдено после часового гугления и заключается оно в правильной настройке переменной окружения <em>SSH_AUTH_SOCK</em>:</p>

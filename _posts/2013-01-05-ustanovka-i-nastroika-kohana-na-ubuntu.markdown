@@ -14,7 +14,7 @@ tags: php kohana programming
 * ОС Ubuntu
 * Установленный [LAMP-сервер](http://help.ubuntu.ru/wiki/lamp)
 
-<!-- more -->
+<!--more-->
 
 <h2>
 	Установка Kohana</h2>
