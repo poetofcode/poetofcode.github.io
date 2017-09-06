@@ -158,5 +158,5 @@ $(function() {
 	// 	$('.fab').addClass('visible');
 	// }
 
-	replaceCanvas(generateCanvas(prettyColors[0]));
+	// replaceCanvas(generateCanvas(prettyColors[0]));
 });
