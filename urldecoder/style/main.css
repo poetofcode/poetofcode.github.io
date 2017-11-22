@@ -37,20 +37,17 @@ button {
 	font-size: 20px;
 }
 
-div.result {
-	font-family: monospace;
+.output {
 	margin-top: 20px;
-	word-wrap: break-word;
+	border: 1px solid #999;
+	overflow: hidden;
 }
 
-div.result a {
-	text-decoration: none;
+#result {
 	font-family: monospace;
-	font-size: 16px;
-}
-
-div.result a:hover {
-	text-decoration: underline;
+	word-wrap: break-word;
+	font-size: 20px;
+	padding: 10px;
 }
 
 .error {

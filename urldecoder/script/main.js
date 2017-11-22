@@ -9,10 +9,10 @@ $(function() {
 
 		try {
 		   var res = encodeURL(base, src);
-		   $('.result').html('<a href="{res}">{res}</a>'.split('{res}').join(res));
+		   $('#result').text(res);
 		}
 		catch (e) {
-		   $('.result').html('<span class="error">{error}</span>'.replace('{error}', e));
+		   $('#result').html('<span class="error">{error}</span>'.replace('{error}', e));
 		}
 	});
 
