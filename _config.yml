@@ -2,10 +2,10 @@
 title: poetofcode.ru
 email: poetinthecode@gmail.com
 description: | # this means to ignore newlines until "baseurl:"
-  «Большинство хороших программистов делают свою работу не потому, что ожидают оплаты или признания, а потому что получают удовольствие от программирования.» Л.Торвальдс
+  Блог о программировании и прочем саморазвитии. Ну и немного нытья, конечно, куда ж без этого. Welcome, если что ;)
 baseurl: "" # the subpath of your site, e.g. /blog/
 excerpt_separator: <!--more-->
-url: "http://poetofcode.ru" # the base hostname & protocol for your site
+url: "http://poetofcode.ru/" # the base hostname & protocol for your site
 twitter_username: poetofcode
 github_username:  poetofcode
 author: poetofcode
@@ -24,11 +24,12 @@ twitter:
   creator: poetofcode
 
 # Front matter defaults
-defaults:
-  - scope:
-      path: ""  # an empty string here means all files in the project, details: https://jekyllrb.com/docs/configuration/#front-matter-defaults
-    values:
-      image: /images/blog_icon.png
+#defaults:
+#  - scope:
+#      path: ""  # an empty string here means all files in the project, details: https://jekyllrb.com/docs/configuration/#front-matter-defaults
+#    values:
+#      author: poetofcode
+#      image: /images/blog_icon.png
 
 # Build settings
 markdown: kramdown

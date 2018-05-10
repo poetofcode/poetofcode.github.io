@@ -5,7 +5,7 @@ date: 2018-04-25 12:25:30 +0300
 comments: true
 category:
 tags: [telegram, proxy, vps, digitalresistance]
-image: images/telegram.jpg
+image: /images/telegram.jpg
 ---
 Итак, нам понадобятся всего 3 вещи: 
 

@@ -5,7 +5,7 @@ date: 2017-06-12 16:00:00 +0300
 comments: true
 category: programming
 tags: android-dev programming
-image: images/android_sizes.png
+image: /images/android_sizes.png
 ---
 
 Недавно я столкнулся с проблемой при экспериментировании с вёрсткой под Андроид. Вообще-то я хотел поиграть с анимацией вьюх и для этого мне нужно было вычислять размеры элементов в процессе анимации и в начальных/конечных фазах.
