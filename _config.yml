@@ -8,6 +8,25 @@ excerpt_separator: <!--more-->
 url: "poetofcode.ru" # the base hostname & protocol for your site
 twitter_username: poetofcode
 github_username:  poetofcode
+author: poetofcode
+logo: /images/blog_icon.png
+lang: ru_RU
+social:
+  name: poetofcode
+  links:
+    - https://twitter.com/poetofcode
+    - https://github.com/poetofcode
+    - https://bitbucket.org/poetofcode
+twitter:
+  username: poetofcode
+  card: summary
+
+# Front matter defaults
+defaults:
+  - scope:
+      path: ""  # an empty string here means all files in the project, details: https://jekyllrb.com/docs/configuration/#front-matter-defaults
+    values:
+      image: /images/blog_icon.png
 
 # Build settings
 markdown: kramdown
