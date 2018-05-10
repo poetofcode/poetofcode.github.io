@@ -5,7 +5,7 @@ description: | # this means to ignore newlines until "baseurl:"
   «Большинство хороших программистов делают свою работу не потому, что ожидают оплаты или признания, а потому что получают удовольствие от программирования.» Л.Торвальдс
 baseurl: "" # the subpath of your site, e.g. /blog/
 excerpt_separator: <!--more-->
-url: "poetofcode.com" # the base hostname & protocol for your site
+url: "poetofcode.ru" # the base hostname & protocol for your site
 twitter_username: poetofcode
 github_username:  poetofcode
 
@@ -15,5 +15,3 @@ highlighter: rouge
 paginate: 10
 exclude: [_excluded, start_server.bat, tmpls_go, config_go.json, new_post.exe]
 gems: [jekyll-paginate, jekyll-seo-tag]
-plugins_dir:
-  - jekyll-seo-tag
