@@ -5,7 +5,7 @@ date: 2021-01-14 17:31:48 +0300
 comments: true
 category:
 tags: [android, android-dev, programming]
-images: /images/android/activity-01.png
+image: /images/android/activity-01.png
 ---
 
 Некоторым сюрпризом для начинающих Андроид-разработчиков становится тот факт, что по своей архитектуре Андроид-приложение ближе к Веб-сайтам, нежели чем к нативным Десктоп-приложениям.
