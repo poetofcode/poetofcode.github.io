@@ -8,14 +8,15 @@ permalink: /about/
 	<img src="/images/about-photo.jpg">
 </div>
 
-В основном блог посвящён программированию и IT в целом.
-Больше всего мне интересны: вебдизайн, геймдев и разработка под мобильники (лучше знаком с Android).
-
-Блог работает на [Jekyll](https://jekyllrb.com/) и хостится на [Github Pages](https://pages.github.com/).
+Рад приветствовать вас на своём блоге!
+Меня зовут Дмиртрий, я занимаюсь разработкой программного обеспечения уже более 10 лет.
+Специализируюсь на программировнаии под `Android OS`, совершенствую свои навыки в `Java` и `Kotlin`.
+Интересуюсь разными языками, подходами, инструментами, методолгиями в программировании и делюсь своим опытом на страницах блога.
 
 # Контакты
 
-Мой ник на различных ресурсах - `@poetofcode` Например: [Twitter](https://twitter.com/poetofcode), [Github](https://github.com/poetofcode), [Bitbucket](https://bitbucket.org/poetofcode/) и [Telegram](http://telegram.me/poetofcode).
+* Мой Github: [https://github.com/poetofcode](https://github.com/poetofcode)
 
-А вот email для связи - <poetinthecode@gmail.com>.<br />
-Признаться честно, я редко когда проверяю email.
+* Email для связи: <poetinthecode@gmail.com>
+
+* Telegram: [@poetofcode](http://t.me/poetofcode)

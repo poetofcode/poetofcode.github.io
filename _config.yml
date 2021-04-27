@@ -2,7 +2,7 @@
 title: poetofcode.ru
 email: poetinthecode@gmail.com
 description: | # this means to ignore newlines until "baseurl:"
-  Блог о программировании и прочем саморазвитии. Ну и немного нытья, конечно, куда ж без этого. Welcome, если что ;)
+  — Ходить по воде и разрабатывать программы, следуя спецификации, очень просто… если они заморожены.
 baseurl: "" # the subpath of your site, e.g. /blog/
 excerpt_separator: <!--more-->
 url: "http://poetofcode.ru" # the base hostname & protocol for your site
